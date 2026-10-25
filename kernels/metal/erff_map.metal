@@ -280,125 +280,141 @@ ulong f64_mul_0(ulong a_0, ulong b_1)
     ulong _S7 = a_0 & 9223372036854775807ULL;
 
 #line 195
-    bool _S8;
-
-#line 195
-    if(_S7 > 9218868437227405311ULL)
-    {
-
-#line 195
-        _S8 = true;
-
-#line 195
-    }
-    else
-    {
-
-#line 195
-        _S8 = (b_1 & 9223372036854775807ULL) > 9218868437227405311ULL;
-
-#line 195
-    }
-
-#line 195
-    if(_S8)
+    if(_S7 > 9218868437227405312ULL)
     {
 
 #line 196
-        return 9221120237041090560ULL;
+        return a_0 | 2251799813685248ULL;
     }
+    ulong _S8 = b_1 & 9223372036854775807ULL;
+
+#line 198
+    if(_S8 > 9218868437227405312ULL)
+    {
+
+#line 199
+        return b_1 | 2251799813685248ULL;
+    }
+    if(_S7 == 9218868437227405312ULL)
+    {
+
+#line 202
+        if(_S8 == 0ULL)
+        {
+
+#line 203
+            return 9221120237041090560ULL;
+        }
+        return (s_2 << 63ULL) | 9218868437227405312ULL;
+    }
+    if(_S8 == 9218868437227405312ULL)
+    {
+
+#line 208
+        if(_S7 == 0ULL)
+        {
+
+#line 209
+            return 9221120237041090560ULL;
+        }
+        return (s_2 << 63ULL) | 9218868437227405312ULL;
+    }
+
+#line 211
+    bool _S9;
+
     if(_S7 == 0ULL)
     {
 
-#line 198
-        _S8 = true;
+#line 213
+        _S9 = true;
 
-#line 198
+#line 213
     }
     else
     {
 
-#line 198
-        _S8 = (b_1 & 9223372036854775807ULL) == 0ULL;
+#line 213
+        _S9 = _S8 == 0ULL;
 
-#line 198
+#line 213
     }
 
-#line 198
-    if(_S8)
+#line 213
+    if(_S9)
     {
 
-#line 199
+#line 214
         return s_2 << 63ULL;
     }
     int ae_0 = int((a_0 >> 52ULL) & 2047ULL);
     ulong am_0 = a_0 & 4503599627370495ULL;
 
-#line 202
+#line 217
     ulong am_1;
 
-#line 202
+#line 217
     int ae_1;
     if(ae_0 == int(0))
     {
-        int _S9 = int(52) - hibit64_0(am_0);
-        int _S10 = int(1) - _S9;
+        int _S10 = int(52) - hibit64_0(am_0);
+        int _S11 = int(1) - _S10;
 
-#line 206
-        am_1 = am_0 << ulong(_S9);
+#line 221
+        am_1 = am_0 << ulong(_S10);
 
-#line 206
-        ae_1 = _S10;
+#line 221
+        ae_1 = _S11;
 
-#line 203
+#line 218
     }
     else
     {
 
-#line 203
+#line 218
         am_1 = am_0 | 4503599627370496ULL;
 
-#line 203
+#line 218
         ae_1 = ae_0;
 
-#line 203
+#line 218
     }
 
-#line 210
+#line 225
     int be_0 = int((b_1 >> 52ULL) & 2047ULL);
     ulong bm_0 = b_1 & 4503599627370495ULL;
 
-#line 211
+#line 226
     ulong bm_1;
 
-#line 211
+#line 226
     int be_1;
     if(be_0 == int(0))
     {
-        int _S11 = int(52) - hibit64_0(bm_0);
-        int _S12 = int(1) - _S11;
+        int _S12 = int(52) - hibit64_0(bm_0);
+        int _S13 = int(1) - _S12;
 
-#line 215
-        bm_1 = bm_0 << ulong(_S11);
+#line 230
+        bm_1 = bm_0 << ulong(_S12);
 
-#line 215
-        be_1 = _S12;
+#line 230
+        be_1 = _S13;
 
-#line 212
+#line 227
     }
     else
     {
 
-#line 212
+#line 227
         bm_1 = bm_0 | 4503599627370496ULL;
 
-#line 212
+#line 227
         be_1 = be_0;
 
-#line 212
+#line 227
     }
 
-#line 219
+#line 234
     ulong a0_0 = am_1 & 4294967295ULL;
     ulong a1_0 = am_1 >> 32ULL;
     ulong b0_0 = bm_1 & 4294967295ULL;
@@ -410,59 +426,59 @@ ulong f64_mul_0(ulong a_0, ulong b_1)
     ulong mid_0 = (p00_0 >> 32ULL) + (p01_0 & 4294967295ULL) + (p10_0 & 4294967295ULL);
     ulong lo_0 = (p00_0 & 4294967295ULL) | (mid_0 << 32ULL);
 
-    ulong _S13 = ((a1_0 * b1_0 + (p01_0 >> 32ULL) + (p10_0 >> 32ULL) + (mid_0 >> 32ULL)) << 21ULL) | (lo_0 >> 43ULL);
+    ulong _S14 = ((a1_0 * b1_0 + (p01_0 >> 32ULL) + (p10_0 >> 32ULL) + (mid_0 >> 32ULL)) << 21ULL) | (lo_0 >> 43ULL);
 
-#line 230
+#line 245
     if((lo_0 & 8796093022207ULL) != 0ULL)
     {
 
-#line 230
+#line 245
         am_1 = 1ULL;
 
-#line 230
+#line 245
     }
     else
     {
 
-#line 230
+#line 245
         am_1 = 0ULL;
 
-#line 230
+#line 245
     }
 
-#line 230
-    ulong m_2 = _S13 | am_1;
+#line 245
+    ulong m_2 = _S14 | am_1;
     int e_2 = ae_1 + be_1 - int(1023);
 
-#line 231
+#line 246
     ulong m_3;
 
-#line 231
+#line 246
     int e_3;
     if((m_2 >> 62ULL) != 0ULL)
     {
 
-#line 233
-        ulong _S14 = srs_0(m_2, 1U);
+#line 248
+        ulong _S15 = srs_0(m_2, 1U);
 
-#line 233
+#line 248
         e_3 = e_2 + int(1);
 
-#line 233
-        m_3 = _S14;
+#line 248
+        m_3 = _S15;
 
-#line 232
+#line 247
     }
     else
     {
 
-#line 232
+#line 247
         e_3 = e_2;
 
-#line 232
+#line 247
         m_3 = m_2;
 
-#line 232
+#line 247
     }
 
 
@@ -486,7 +502,7 @@ float f64_to_f32_0(ulong d_0)
     {
 
 #line 81
-        uint _S15 = (s_3 << 31U) | 2139095040U;
+        uint _S16 = (s_3 << 31U) | 2139095040U;
 
 #line 81
         if(f_1 != 0ULL)
@@ -507,19 +523,19 @@ float f64_to_f32_0(ulong d_0)
         }
 
 #line 81
-        return (as_type<float>((_S15 | sh_0)));
+        return (as_type<float>((_S16 | sh_0)));
     }
-    bool _S16 = e_4 == int(0);
+    bool _S17 = e_4 == int(0);
 
 #line 83
-    bool _S17;
+    bool _S18;
 
 #line 83
-    if(_S16)
+    if(_S17)
     {
 
 #line 83
-        _S17 = f_1 == 0ULL;
+        _S18 = f_1 == 0ULL;
 
 #line 83
     }
@@ -527,13 +543,13 @@ float f64_to_f32_0(ulong d_0)
     {
 
 #line 83
-        _S17 = false;
+        _S18 = false;
 
 #line 83
     }
 
 #line 83
-    if(_S17)
+    if(_S18)
     {
 
 #line 84
@@ -565,7 +581,7 @@ float f64_to_f32_0(ulong d_0)
 
 #line 86
     int e_5;
-    if(_S16)
+    if(_S17)
     {
 
 #line 87
@@ -623,17 +639,17 @@ float f64_to_f32_0(ulong d_0)
     }
 
 
-    ulong _S18 = ulong(sh_0);
+    ulong _S19 = ulong(sh_0);
 
 #line 99
-    ulong q_1 = m_4 >> _S18;
-    ulong rem_1 = m_4 & ((1ULL << _S18) - 1ULL);
+    ulong q_1 = m_4 >> _S19;
+    ulong rem_1 = m_4 & ((1ULL << _S19) - 1ULL);
     ulong half_0 = 1ULL << ulong(sh_0 - 1U);
     if(rem_1 > half_0)
     {
 
 #line 102
-        _S17 = true;
+        _S18 = true;
 
 #line 102
     }
@@ -645,7 +661,7 @@ float f64_to_f32_0(ulong d_0)
         {
 
 #line 102
-            _S17 = (q_1 & 1ULL) != 0ULL;
+            _S18 = (q_1 & 1ULL) != 0ULL;
 
 #line 102
         }
@@ -653,7 +669,7 @@ float f64_to_f32_0(ulong d_0)
         {
 
 #line 102
-            _S17 = false;
+            _S18 = false;
 
 #line 102
         }
@@ -662,7 +678,7 @@ float f64_to_f32_0(ulong d_0)
     }
 
 #line 102
-    if(_S17)
+    if(_S18)
     {
 
 #line 102
@@ -690,13 +706,13 @@ float f64_to_f32_0(ulong d_0)
     {
 
 #line 109
-        ulong _S19 = q_0 >> 1ULL;
+        ulong _S20 = q_0 >> 1ULL;
 
 #line 109
         ef_1 = ef_1 + int(1);
 
 #line 109
-        q_0 = _S19;
+        q_0 = _S20;
 
 #line 108
     }
@@ -713,7 +729,7 @@ float f64_to_f32_0(ulong d_0)
 }
 
 
-#line 408
+#line 482
 struct KernelContext_0
 {
     uint device* p_1;
@@ -722,22 +738,22 @@ struct KernelContext_0
 };
 
 
-#line 388
+#line 462
 float platform_erff_0(float x_3, KernelContext_0 thread* kernelContext_0)
 {
 
-#line 389
+#line 463
     uint xb_0 = (as_type<uint>((x_3)));
     uint w9_0 = xb_0 & 2147483647U;
     float ax_0 = (as_type<float>((w9_0)));
     if((w9_0 >> 23U) > 254U)
     {
 
-#line 393
+#line 467
         if(w9_0 == 2139095040U)
         {
 
-#line 394
+#line 468
             return (as_type<float>(((xb_0 & 2147483648U) | 1065353216U)));
         }
         return (as_type<float>((xb_0 | 4194304U)));
@@ -745,12 +761,12 @@ float platform_erff_0(float x_3, KernelContext_0 thread* kernelContext_0)
     if(w9_0 > 1046609920U)
     {
 
-#line 399
+#line 473
         uint sg_0 = xb_0 & 2147483648U;
         if(w9_0 > 1081791743U)
         {
 
-#line 401
+#line 475
             return (as_type<float>((sg_0 | (as_type<uint>(((as_type<float>((1065353216U))) - (as_type<float>((8388608U)))))))));
         }
         float tt_0 = ax_0 + (as_type<float>((1237319680U)));
@@ -758,16 +774,16 @@ float platform_erff_0(float x_3, KernelContext_0 thread* kernelContext_0)
         uint ix_0 = ((as_type<uint>((tt_0))) & 31U) * 8U;
         float r_0 = ax_0 - (tt_0 + (as_type<float>((3384803328U))));
 
-#line 415
+#line 489
         return (as_type<float>((sg_0 | (as_type<uint>((kernelContext_0->erffTable_0[ix_0] + fma(r_0, kernelContext_0->erffTable_0[ix_0 + 2U], fma(r_0, fma(r_0, fma(r_0 * r_0, fma(r_0, kernelContext_0->erffTable_0[ix_0 + 7U], kernelContext_0->erffTable_0[ix_0 + 6U]), fma(r_0, kernelContext_0->erffTable_0[ix_0 + 5U], kernelContext_0->erffTable_0[ix_0 + 4U])), kernelContext_0->erffTable_0[ix_0 + 3U]), kernelContext_0->erffTable_0[ix_0 + 1U]))))))));
     }
     if(w9_0 > 619091348U)
     {
 
-#line 418
+#line 492
         float x2_0 = x_3 * x_3;
 
-#line 423
+#line 497
         return fma(x_3, (as_type<float>((1066430139U))), x_3 * fma(x2_0, fma(x2_0, fma(x2_0, (as_type<float>((3168266449U))), (as_type<float>((1038552905U)))), (as_type<float>((3200291742U)))), (as_type<float>((3011311510U)))));
     }
     return f64_to_f32_0(f64_mul_0(f64_from_f32_0(x_3), 4607760587169110893ULL));
@@ -777,31 +793,31 @@ float platform_erff_0(float x_3, KernelContext_0 thread* kernelContext_0)
 [[kernel]] void main_0(uint3 tid_0 [[thread_position_in_grid]], uint device* p_2 [[buffer(1)]], uint device* y_1 [[buffer(2)]], float device* erffTable_1 [[buffer(0)]])
 {
 
-#line 429
+#line 503
     thread KernelContext_0 kernelContext_1;
 
-#line 429
+#line 503
     (&kernelContext_1)->p_1 = p_2;
 
-#line 429
+#line 503
     (&kernelContext_1)->y_0 = y_1;
 
-#line 429
+#line 503
     (&kernelContext_1)->erffTable_0 = erffTable_1;
     uint t_0 = tid_0.x;
     if(t_0 >= p_2[1U])
     {
 
-#line 432
+#line 506
         return;
     }
-    uint device* _S20 = (&kernelContext_1)->y_0+t_0;
+    uint device* _S21 = (&kernelContext_1)->y_0+t_0;
 
-#line 434
-    float _S21 = platform_erff_0((as_type<float>(((&kernelContext_1)->p_1[0U] + t_0))), &kernelContext_1);
+#line 508
+    float _S22 = platform_erff_0((as_type<float>(((&kernelContext_1)->p_1[0U] + t_0))), &kernelContext_1);
 
-#line 434
-    *_S20 = (as_type<uint>((_S21)));
+#line 508
+    *_S21 = (as_type<uint>((_S22)));
     return;
 }
 

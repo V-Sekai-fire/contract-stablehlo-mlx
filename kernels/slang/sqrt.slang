@@ -192,8 +192,23 @@ uint64_t f64_add(uint64_t a, uint64_t b) {
 
 uint64_t f64_mul(uint64_t a, uint64_t b) {
   uint64_t s = ((a ^ b) >> 63ULL);
-  if ((((a & 9223372036854775807ULL) > 9218868437227405311ULL) || ((b & 9223372036854775807ULL) > 9218868437227405311ULL))) {
-    return 9221120237041090560ULL;
+  if (((a & 9223372036854775807ULL) > 9218868437227405312ULL)) {
+    return (a | 2251799813685248ULL);
+  }
+  if (((b & 9223372036854775807ULL) > 9218868437227405312ULL)) {
+    return (b | 2251799813685248ULL);
+  }
+  if (((a & 9223372036854775807ULL) == 9218868437227405312ULL)) {
+    if (((b & 9223372036854775807ULL) == 0ULL)) {
+      return 9221120237041090560ULL;
+    }
+    return ((s << 63ULL) | 9218868437227405312ULL);
+  }
+  if (((b & 9223372036854775807ULL) == 9218868437227405312ULL)) {
+    if (((a & 9223372036854775807ULL) == 0ULL)) {
+      return 9221120237041090560ULL;
+    }
+    return ((s << 63ULL) | 9218868437227405312ULL);
   }
   if ((((a & 9223372036854775807ULL) == 0ULL) || ((b & 9223372036854775807ULL) == 0ULL))) {
     return (s << 63ULL);
@@ -358,6 +373,65 @@ float f32_sqrt(float x) {
     ee = (ee + 1);
   }
   return asfloat(((uint(ee) << 23u) | uint((q & 8388607ULL))));
+}
+
+uint64_t f64_sub(uint64_t a, uint64_t b) {
+  if (((a & 9223372036854775807ULL) > 9218868437227405312ULL)) {
+    return (a | 2251799813685248ULL);
+  }
+  if (((b & 9223372036854775807ULL) > 9218868437227405312ULL)) {
+    return (b | 2251799813685248ULL);
+  }
+  return f64_add(a, (b ^ 9223372036854775808ULL));
+}
+
+uint64_t f64_floor(uint64_t a) {
+  if (((a & 9223372036854775807ULL) > 9218868437227405312ULL)) {
+    return (a | 2251799813685248ULL);
+  }
+  if (((a & 9223372036854775807ULL) == 0ULL)) {
+    return a;
+  }
+  int e = int(((a >> 52ULL) & 2047ULL));
+  if ((e >= 1075)) {
+    return a;
+  }
+  if ((e < 1023)) {
+    return (((a >> 63ULL) != 0ULL) ? 13830554455654793216ULL : 0ULL);
+  }
+  uint64_t mask = ((1ULL << uint64_t((1075 - e))) - 1ULL);
+  if (((a & mask) == 0ULL)) {
+    return a;
+  }
+  if (((a >> 63ULL) == 0ULL)) {
+    return (a & (mask ^ 18446744073709551615ULL));
+  }
+  return (((a & (mask ^ 18446744073709551615ULL)) + mask) + 1ULL);
+}
+
+uint64_t f64_to_i64(uint64_t a) {
+  if (((a & 9223372036854775807ULL) > 9218868437227405312ULL)) {
+    return 0ULL;
+  }
+  int e = int(((a >> 52ULL) & 2047ULL));
+  uint64_t s = (a >> 63ULL);
+  if ((e < 1023)) {
+    return 0ULL;
+  }
+  if ((e >= 1086)) {
+    return ((s != 0ULL) ? 9223372036854775808ULL : 9223372036854775807ULL);
+  }
+  uint64_t m = ((a & 4503599627370495ULL) | 4503599627370496ULL);
+  uint64_t q = 0ULL;
+  if ((e >= 1075)) {
+    q = (m << uint64_t((e - 1075)));
+  } else {
+    q = (m >> uint64_t((1075 - e)));
+  }
+  if ((s != 0ULL)) {
+    return ((q ^ 18446744073709551615ULL) + 1ULL);
+  }
+  return q;
 }
 
 float ggml_v_expf(float x) {

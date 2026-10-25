@@ -73,10 +73,71 @@ static void in(struct ggml_tensor *t) {
 	save(n, t);
 }
 
+// The graph as contract-ggml-stablehlo's backend hands it to its emitter
+// ("ghlo-graph 1", c/ghlo_ggml.c describe()): arguments first, in the order the
+// nodes first read them, then the nodes in order. Its emitter turns this into the
+// StableHLO module that the generic path of this executor runs.
+static int is_node(struct ggml_cgraph *g, const struct ggml_tensor *x) {
+	for (int i = 0; i < ggml_graph_n_nodes(g); ++i)
+		if (ggml_graph_node(g, i) == x) return 1;
+	return 0;
+}
+static int find(struct ggml_tensor **tb, int n, const struct ggml_tensor *x) {
+	for (int i = 0; i < n; ++i)
+		if (tb[i] == x) return i;
+	return -1;
+}
+static int add_once(struct ggml_tensor **tb, int n, struct ggml_tensor *x) {
+	if (find(tb, n, x) < 0) tb[n++] = x;
+	return n;
+}
+static void write_graph(struct ggml_cgraph *g) {
+	const int nn = ggml_graph_n_nodes(g);
+	struct ggml_tensor **tb = calloc((size_t)(nn * (GGML_MAX_SRC + 2)), sizeof *tb);
+	int n = 0;
+	for (int i = 0; i < nn; ++i) {
+		struct ggml_tensor *t = ggml_graph_node(g, i);
+		for (int s = 0; s < GGML_MAX_SRC; ++s)
+			if (t->src[s] && !is_node(g, t->src[s])) n = add_once(tb, n, t->src[s]);
+		if (t->view_src && !is_node(g, t->view_src)) n = add_once(tb, n, t->view_src);
+	}
+	const int nargs = n;
+	for (int i = 0; i < nn; ++i) n = add_once(tb, n, ggml_graph_node(g, i));
+	char p[1200];
+	snprintf(p, sizeof p, "%s/graph.txt", casedir);
+	FILE *f = fopen(p, "w");
+	if (!f) { perror(p); exit(1); }
+	fprintf(f, "ghlo-graph 1\n");
+	for (int i = 0; i < n; ++i) {
+		struct ggml_tensor *t = tb[i];
+		const int node = i >= nargs;
+		int output = node && (t->flags & GGML_TENSOR_FLAG_OUTPUT);
+		if (node && !output) {
+			int used = 0;
+			for (int j = i + 1; j < n && !used; ++j) {
+				for (int s = 0; s < GGML_MAX_SRC; ++s) used |= tb[j]->src[s] == t;
+				used |= tb[j]->view_src == t;
+			}
+			output = !used;
+		}
+		fprintf(f, "T %d %s %s %d %d %s %lld %lld %lld %lld %zu %zu %zu %zu %d %zu", i, ggml_op_name(t->op),
+		        t->op == GGML_OP_UNARY ? ggml_unary_op_name(ggml_get_unary_op(t)) : "-", node, output,
+		        ggml_type_name(t->type), (long long)t->ne[0], (long long)t->ne[1], (long long)t->ne[2],
+		        (long long)t->ne[3], t->nb[0], t->nb[1], t->nb[2], t->nb[3],
+		        t->view_src ? find(tb, n, t->view_src) : -1, t->view_src ? t->view_offs : 0);
+		for (int s = 0; s < 10; ++s) fprintf(f, " %d", s < GGML_MAX_SRC && t->src[s] ? find(tb, n, t->src[s]) : -1);
+		for (int q = 0; q < 16; ++q) fprintf(f, " %d", t->op_params[q]);
+		fprintf(f, "\n");
+	}
+	fclose(f);
+	free(tb);
+}
+
 static void finish(struct ggml_tensor *out) {
 	if (!ggml_is_contiguous(out)) out = ggml_cont(ctx, out);
 	struct ggml_cgraph *g = ggml_new_graph(ctx);
 	ggml_build_forward_expand(g, out);
+	write_graph(g);
 	// One thread: no op here changes its per-element order with the thread
 	// count, and one thread keeps the fixture independent of the host.
 	if (ggml_graph_compute_with_ctx(ctx, g, 1) != GGML_STATUS_SUCCESS) { fprintf(stderr, "compute failed\n"); exit(1); }

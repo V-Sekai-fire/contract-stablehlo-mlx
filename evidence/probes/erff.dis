@@ -1,0 +1,96 @@
+Current executable set to '/Users/ernest.lee/.hermes/cache/scratch/smlx/probe/e' (arm64).
+Breakpoint 1: where = e`main, address = 0x0000000100003f18
+Process 34567 launched: '/Users/ernest.lee/.hermes/cache/scratch/smlx/probe/e' (arm64)
+Process 34567 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x0000000100003f18 e`main
+e`main:
+->  0x100003f18 <+0>:  sub    sp, sp, #0x40
+    0x100003f1c <+4>:  stp    x29, x30, [sp, #0x30]
+    0x100003f20 <+8>:  add    x29, sp, #0x30
+    0x100003f24 <+12>: mov    w8, #0x0                  ; =0 
+Target 0: (e) stopped.
+libsystem_m.dylib`erff:
+    0x19b1e5120 <+0>:   fabs   s1, s0
+    0x19b1e5124 <+4>:   fmov   w9, s1
+    0x19b1e5128 <+8>:   lsr    w8, w9, #23
+    0x19b1e512c <+12>:  cmp    w8, #0xfe
+    0x19b1e5130 <+16>:  b.hi   0x19b1e5168               ; <+72>
+    0x19b1e5134 <+20>:  mov    w8, #0x3e620000           ; =1046609920 
+    0x19b1e5138 <+24>:  cmp    w9, w8
+    0x19b1e513c <+28>:  b.hi   0x19b1e5184               ; <+100>
+    0x19b1e5140 <+32>:  mov    w8, #0x9594               ; =38292 
+    0x19b1e5144 <+36>:  movk   w8, #0x24e6, lsl #16
+    0x19b1e5148 <+40>:  cmp    w9, w8
+    0x19b1e514c <+44>:  b.hi   0x19b1e5208               ; <+232>
+    0x19b1e5150 <+48>:  fcvt   d0, s0
+    0x19b1e5154 <+52>:  adrp   x8, 15
+    0x19b1e5158 <+56>:  ldr    d1, [x8, #0x828]
+    0x19b1e515c <+60>:  fmul   d0, d0, d1
+    0x19b1e5160 <+64>:  fcvt   s0, d0
+    0x19b1e5164 <+68>:  ret    
+    0x19b1e5168 <+72>:  mov    w8, #0x7f800000           ; =2139095040 
+    0x19b1e516c <+76>:  cmp    w9, w8
+    0x19b1e5170 <+80>:  b.ne   0x19b1e5200               ; <+224>
+    0x19b1e5174 <+84>:  fmov   s1, #1.00000000
+    0x19b1e5178 <+88>:  mvni.4s v2, #0x80, lsl #24
+    0x19b1e517c <+92>:  bit.16b v0, v1, v2
+    0x19b1e5180 <+96>:  ret    
+    0x19b1e5184 <+100>: fmov   w8, s0
+    0x19b1e5188 <+104>: and    w8, w8, #0x80000000
+    0x19b1e518c <+108>: mov    w10, #0xd4ff              ; =54527 
+    0x19b1e5190 <+112>: movk   w10, #0x407a, lsl #16
+    0x19b1e5194 <+116>: cmp    w9, w10
+    0x19b1e5198 <+120>: b.hi   0x19b1e524c               ; <+300>
+    0x19b1e519c <+124>: mov    w9, #0x49c00000           ; =1237319680 
+    0x19b1e51a0 <+128>: fmov   s0, w9
+    0x19b1e51a4 <+132>: fadd   s0, s1, s0
+    0x19b1e51a8 <+136>: mov    w9, #-0x36400000          ; =-910163968 
+    0x19b1e51ac <+140>: fmov   s2, w9
+    0x19b1e51b0 <+144>: fadd   s2, s0, s2
+    0x19b1e51b4 <+148>: fmov   w9, s0
+    0x19b1e51b8 <+152>: and    w9, w9, #0x1f
+    0x19b1e51bc <+156>: fsub   s0, s1, s2
+    0x19b1e51c0 <+160>: fmul   s1, s0, s0
+    0x19b1e51c4 <+164>: adrp   x10, 15
+    0x19b1e51c8 <+168>: add    x10, x10, #0x830          ; _FE_DFL_DISABLE_DENORMS_ENV + 32040
+    0x19b1e51cc <+172>: add    x9, x10, x9, lsl #5
+    0x19b1e51d0 <+176>: ldp    s2, s3, [x9, #0x18]
+    0x19b1e51d4 <+180>: fmadd  s2, s0, s3, s2
+    0x19b1e51d8 <+184>: ldp    s3, s4, [x9, #0x10]
+    0x19b1e51dc <+188>: fmadd  s3, s0, s4, s3
+    0x19b1e51e0 <+192>: fmadd  s1, s1, s2, s3
+    0x19b1e51e4 <+196>: ldp    s3, s2, [x9, #0x8]
+    0x19b1e51e8 <+200>: fmadd  s1, s0, s1, s2
+    0x19b1e51ec <+204>: ldp    s4, s2, [x9]
+    0x19b1e51f0 <+208>: fmadd  s1, s0, s1, s2
+    0x19b1e51f4 <+212>: fmadd  s0, s0, s3, s1
+    0x19b1e51f8 <+216>: fadd   s0, s4, s0
+    0x19b1e51fc <+220>: b      0x19b1e525c               ; <+316>
+    0x19b1e5200 <+224>: fadd   s0, s0, s0
+    0x19b1e5204 <+228>: ret    
+    0x19b1e5208 <+232>: fmul   s1, s0, s0
+    0x19b1e520c <+236>: adrp   x8, 15
+    0x19b1e5210 <+240>: ldr    s2, [x8, #0x810]
+    0x19b1e5214 <+244>: adrp   x8, 15
+    0x19b1e5218 <+248>: ldr    s3, [x8, #0x814]
+    0x19b1e521c <+252>: fmadd  s2, s1, s3, s2
+    0x19b1e5220 <+256>: adrp   x8, 15
+    0x19b1e5224 <+260>: ldr    s3, [x8, #0x818]
+    0x19b1e5228 <+264>: fmadd  s2, s1, s2, s3
+    0x19b1e522c <+268>: adrp   x8, 15
+    0x19b1e5230 <+272>: ldr    s3, [x8, #0x81c]
+    0x19b1e5234 <+276>: fmadd  s1, s1, s2, s3
+    0x19b1e5238 <+280>: fmul   s1, s0, s1
+    0x19b1e523c <+284>: adrp   x8, 15
+    0x19b1e5240 <+288>: ldr    s2, [x8, #0x820]
+    0x19b1e5244 <+292>: fmadd  s0, s0, s2, s1
+    0x19b1e5248 <+296>: ret    
+    0x19b1e524c <+300>: adrp   x9, 15
+    0x19b1e5250 <+304>: ldr    s0, [x9, #0xc30]
+    0x19b1e5254 <+308>: fmov   s1, #1.00000000
+    0x19b1e5258 <+312>: fsub   s0, s1, s0
+    0x19b1e525c <+316>: fmov   w9, s0
+    0x19b1e5260 <+320>: orr    w8, w8, w9
+    0x19b1e5264 <+324>: fmov   s0, w8
+    0x19b1e5268 <+328>: ret    

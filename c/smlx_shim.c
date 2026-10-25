@@ -189,6 +189,8 @@ LEAN_EXPORT lean_obj_res smlx_binary(uint32_t op, b_lean_obj_arg x, b_lean_obj_a
 	case 16: RET(mlx_greater_equal(&r, a, b, gpu), "ge");
 	case 17: RET(mlx_matmul(&r, a, b, gpu), "matmul");
 	case 18: RET(mlx_remainder(&r, a, b, gpu), "remainder");
+	case 19: RET(mlx_logical_and(&r, a, b, gpu), "logical_and");
+	case 20: RET(mlx_logical_or(&r, a, b, gpu), "logical_or");
 	default: return io_err("binary: unknown op code");
 	}
 }
@@ -249,6 +251,11 @@ LEAN_EXPORT lean_obj_res smlx_view(b_lean_obj_arg x, uint8_t dt, lean_obj_arg w)
 LEAN_EXPORT lean_obj_res smlx_take(b_lean_obj_arg x, b_lean_obj_arg idx, uint32_t axis, lean_obj_arg w) {
 	init();
 	RET(mlx_take_axis(&r, unbox_arr(x), unbox_arr(idx), (int)axis, gpu), "take");
+}
+
+LEAN_EXPORT lean_obj_res smlx_max_axis(b_lean_obj_arg x, uint32_t axis, lean_obj_arg w) {
+	init();
+	RET(mlx_max_axis(&r, unbox_arr(x), (int)axis, false, gpu), "max_axis");
 }
 
 LEAN_EXPORT lean_obj_res smlx_contiguous(b_lean_obj_arg x, lean_obj_arg w) {

@@ -23,17 +23,17 @@ uint firstbithigh_0(uint value_0)
 }
 
 
-#line 363 "kernels/slang/soft_max.slang"
+#line 437 "kernels/slang/soft_max.slang"
 float ggml_v_expf_0(float x_0)
 {
 
-#line 364
+#line 438
     float r_0 = (as_type<float>((1262485504U)));
     float z_0 = fma(x_0, (as_type<float>((1069066811U))), r_0);
     float n_0 = z_0 - r_0;
     float _S2 = - n_0;
 
-#line 367
+#line 441
     float b_0 = fma(_S2, (as_type<float>((901758606U))), fma(_S2, (as_type<float>((1060205056U))), x_0));
     uint e_0 = (as_type<uint>((z_0))) << 23U;
     float k_0 = (as_type<float>((e_0 + 1065353216U)));
@@ -44,35 +44,35 @@ float ggml_v_expf_0(float x_0)
     float j_0 = fma(fma(fma((as_type<float>((1007099920U))), b_0, (as_type<float>((1026268951U)))), uu_0, fma((as_type<float>((1042984755U))), b_0, (as_type<float>((1056964315U))))), uu_0, (as_type<float>((1065353206U))) * b_0);
     float an_0 = abs(n_0);
 
-#line 375
+#line 449
     uint d_0;
     if(n_0 <= (as_type<float>((0U))))
     {
 
-#line 376
+#line 450
         d_0 = 2181038080U;
 
-#line 376
+#line 450
     }
     else
     {
 
-#line 376
+#line 450
         d_0 = 0U;
 
-#line 376
+#line 450
     }
     float s1_0 = (as_type<float>((d_0 + 2130706432U)));
     if(an_0 > (as_type<float>((1128267776U))))
     {
 
-#line 379
+#line 453
         return s1_0 * s1_0;
     }
     if(an_0 > (as_type<float>((1123811328U))))
     {
 
-#line 382
+#line 456
         float s2_0 = (as_type<float>((e_0 - d_0)));
         return fma(s2_0, j_0, s2_0) * s1_0;
     }
@@ -632,38 +632,38 @@ ulong f64_add_0(ulong a_0, ulong b_2)
 }
 
 
-#line 239
+#line 254
 ulong f64_div_0(ulong a_1, ulong b_3)
 {
 
-#line 240
+#line 255
     ulong s_2 = (a_1 ^ b_3) >> 63ULL;
     ulong _S19 = a_1 & 9223372036854775807ULL;
 
-#line 241
+#line 256
     if(_S19 > 9218868437227405312ULL)
     {
 
-#line 242
+#line 257
         return a_1 | 2251799813685248ULL;
     }
     ulong _S20 = b_3 & 9223372036854775807ULL;
 
-#line 244
+#line 259
     if(_S20 > 9218868437227405312ULL)
     {
 
-#line 245
+#line 260
         return b_3 | 2251799813685248ULL;
     }
     if(_S19 == 9218868437227405312ULL)
     {
 
-#line 248
+#line 263
         if(_S20 == 9218868437227405312ULL)
         {
 
-#line 249
+#line 264
             return 9221120237041090560ULL;
         }
         return (s_2 << 63ULL) | 9218868437227405312ULL;
@@ -671,17 +671,17 @@ ulong f64_div_0(ulong a_1, ulong b_3)
     if(_S20 == 9218868437227405312ULL)
     {
 
-#line 254
+#line 269
         return s_2 << 63ULL;
     }
     if(_S20 == 0ULL)
     {
 
-#line 257
+#line 272
         if(_S19 == 0ULL)
         {
 
-#line 258
+#line 273
             return 9221120237041090560ULL;
         }
         return (s_2 << 63ULL) | 9218868437227405312ULL;
@@ -689,31 +689,31 @@ ulong f64_div_0(ulong a_1, ulong b_3)
     if(_S19 == 0ULL)
     {
 
-#line 263
+#line 278
         return s_2 << 63ULL;
     }
     int ae_2 = int((a_1 >> 52ULL) & 2047ULL);
     ulong am_3 = a_1 & 4503599627370495ULL;
 
-#line 266
+#line 281
     int ae_3;
 
-#line 266
+#line 281
     ulong am_4;
     if(ae_2 == int(0))
     {
         int _S21 = int(52) - hibit64_0(am_3);
 
-#line 269
+#line 284
         ulong _S22 = am_3 << ulong(_S21);
 
-#line 269
+#line 284
         ae_3 = int(1) - _S21;
 
-#line 269
+#line 284
         am_4 = _S22;
 
-#line 267
+#line 282
     }
     else
     {
@@ -721,38 +721,38 @@ ulong f64_div_0(ulong a_1, ulong b_3)
 
         ulong _S23 = am_3 | 4503599627370496ULL;
 
-#line 272
+#line 287
         ae_3 = ae_2;
 
-#line 272
+#line 287
         am_4 = _S23;
 
-#line 267
+#line 282
     }
 
-#line 274
+#line 289
     int be_2 = int((b_3 >> 52ULL) & 2047ULL);
     ulong bm_4 = b_3 & 4503599627370495ULL;
 
-#line 275
+#line 290
     int be_3;
 
-#line 275
+#line 290
     ulong bm_5;
     if(be_2 == int(0))
     {
         int _S24 = int(52) - hibit64_0(bm_4);
 
-#line 278
+#line 293
         ulong _S25 = bm_4 << ulong(_S24);
 
-#line 278
+#line 293
         be_3 = int(1) - _S24;
 
-#line 278
+#line 293
         bm_5 = _S25;
 
-#line 276
+#line 291
     }
     else
     {
@@ -760,129 +760,129 @@ ulong f64_div_0(ulong a_1, ulong b_3)
 
         ulong _S26 = bm_4 | 4503599627370496ULL;
 
-#line 281
+#line 296
         be_3 = be_2;
 
-#line 281
+#line 296
         bm_5 = _S26;
 
-#line 276
+#line 291
     }
 
-#line 283
+#line 298
     int e_4 = ae_3 - be_3 + int(1023);
 
-#line 283
+#line 298
     int e_5;
     if(am_4 < bm_5)
     {
         int _S27 = e_4 - int(1);
 
-#line 286
+#line 301
         am_4 = am_4 << 1ULL;
 
-#line 286
+#line 301
         e_5 = _S27;
 
-#line 284
+#line 299
     }
     else
     {
 
-#line 284
+#line 299
         e_5 = e_4;
 
-#line 284
+#line 299
     }
 
-#line 284
+#line 299
     ulong q_0 = 0ULL;
 
-#line 284
+#line 299
     ulong r_1 = am_4;
 
-#line 284
+#line 299
     uint i_0 = 0U;
 
-#line 290
+#line 305
     for(;;)
     {
 
-#line 290
+#line 305
         if(i_0 < 55U)
         {
         }
         else
         {
 
-#line 290
+#line 305
             break;
         }
 
-#line 291
+#line 306
         ulong q_1 = q_0 << 1ULL;
 
-#line 291
+#line 306
         ulong r_2;
         if(r_1 >= bm_5)
         {
             ulong _S28 = q_1 | 1ULL;
 
-#line 294
+#line 309
             r_2 = r_1 - bm_5;
 
-#line 294
+#line 309
             q_0 = _S28;
 
-#line 292
+#line 307
         }
         else
         {
 
-#line 292
+#line 307
             r_2 = r_1;
 
-#line 292
+#line 307
             q_0 = q_1;
 
-#line 292
+#line 307
         }
 
 
 
         ulong _S29 = r_2 << 1ULL;
 
-#line 290
+#line 305
         uint i_1 = i_0 + 1U;
 
-#line 290
+#line 305
         r_1 = _S29;
 
-#line 290
+#line 305
         i_0 = i_1;
 
-#line 290
+#line 305
     }
 
-#line 298
+#line 313
     ulong _S30 = q_0 << 7ULL;
 
-#line 298
+#line 313
     if(r_1 != 0ULL)
     {
 
-#line 298
+#line 313
         am_4 = 1ULL;
 
-#line 298
+#line 313
     }
     else
     {
 
-#line 298
+#line 313
         am_4 = 0ULL;
 
-#line 298
+#line 313
     }
     return pack64_0(s_2, e_5, _S30 | am_4);
 }
@@ -1130,7 +1130,7 @@ float f64_to_f32_0(ulong d_1)
 }
 
 
-#line 409
+#line 483
 struct KernelContext_0
 {
     uint device* p_1;
@@ -1139,52 +1139,52 @@ struct KernelContext_0
 };
 
 
-#line 389
+#line 463
 [[kernel]] void main_0(uint3 tid_0 [[thread_position_in_grid]], uint device* p_2 [[buffer(1)]], float device* x_5 [[buffer(0)]], float device* y_1 [[buffer(2)]])
 {
 
-#line 389
+#line 463
     thread KernelContext_0 kernelContext_0;
 
-#line 389
+#line 463
     (&kernelContext_0)->p_1 = p_2;
 
-#line 389
+#line 463
     (&kernelContext_0)->x_4 = x_5;
 
-#line 389
+#line 463
     (&kernelContext_0)->y_0 = y_1;
     uint t_0 = tid_0.x;
     if(t_0 >= p_2[1U])
     {
 
-#line 392
+#line 466
         return;
     }
     uint _S36 = t_0 * (&kernelContext_0)->p_1[0U];
     float _S37 = (as_type<float>(((&kernelContext_0)->p_1[2U])));
 
-#line 395
+#line 469
     float mx_0 = (as_type<float>((4286578688U)));
 
-#line 395
+#line 469
     uint i_2 = 0U;
 
     for(;;)
     {
 
-#line 397
+#line 471
         if(i_2 < ((&kernelContext_0)->p_1)[0U])
         {
         }
         else
         {
 
-#line 397
+#line 471
             break;
         }
 
-#line 398
+#line 472
         float wv_0 = (&kernelContext_0)->x_4[_S36 + i_2] * _S37;
         if(mx_0 > wv_0)
         {
@@ -1192,57 +1192,57 @@ struct KernelContext_0
         else
         {
 
-#line 399
+#line 473
             mx_0 = wv_0;
 
-#line 399
+#line 473
         }
 
-#line 397
+#line 471
         i_2 = i_2 + 1U;
 
-#line 397
+#line 471
     }
 
-#line 402
+#line 476
     float _S38 = (as_type<float>((0U)));
 
-#line 402
+#line 476
     ulong sum_0 = 0ULL;
 
-#line 402
+#line 476
     float fs_0 = _S38;
 
-#line 402
+#line 476
     uint g_0 = 0U;
     for(;;)
     {
 
-#line 403
+#line 477
         if(g_0 < ((&kernelContext_0)->p_1[0U] / 4U))
         {
         }
         else
         {
 
-#line 403
+#line 477
             break;
         }
 
-#line 404
+#line 478
         uint i_3 = _S36 + g_0 * 4U;
         float e0_1 = ggml_v_expf_0((&kernelContext_0)->x_4[i_3] * _S37 - mx_0);
         uint _S39 = i_3 + 1U;
 
-#line 406
+#line 480
         float e1_0 = ggml_v_expf_0((&kernelContext_0)->x_4[_S39] * _S37 - mx_0);
         uint _S40 = i_3 + 2U;
 
-#line 407
+#line 481
         float e2_0 = ggml_v_expf_0((&kernelContext_0)->x_4[_S40] * _S37 - mx_0);
         uint _S41 = i_3 + 3U;
 
-#line 408
+#line 482
         float e3_0 = ggml_v_expf_0((&kernelContext_0)->x_4[_S41] * _S37 - mx_0);
         *((&kernelContext_0)->y_0+i_3) = e0_1;
         *((&kernelContext_0)->y_0+_S39) = e1_0;
@@ -1252,71 +1252,71 @@ struct KernelContext_0
         ulong _S42 = f64_add_0(sum_0, f64_from_f32_0(part_0));
         float _S43 = fs_0 + part_0;
 
-#line 403
+#line 477
         uint g_1 = g_0 + 1U;
 
-#line 403
+#line 477
         sum_0 = _S42;
 
-#line 403
+#line 477
         fs_0 = _S43;
 
-#line 403
+#line 477
         g_0 = g_1;
 
-#line 403
+#line 477
     }
 
-#line 417
+#line 491
     float _S44 = f64_to_f32_0(f64_div_0(4607182418800017408ULL, sum_0));
 
-#line 417
+#line 491
     float inv_0;
     if((&kernelContext_0)->p_1[3U] != 0U)
     {
 
-#line 418
+#line 492
         inv_0 = (as_type<float>((1065353216U))) / fs_0;
 
-#line 418
+#line 492
     }
     else
     {
 
-#line 418
+#line 492
         inv_0 = _S44;
 
-#line 418
+#line 492
     }
 
-#line 418
+#line 492
     i_2 = 0U;
 
 
     for(;;)
     {
 
-#line 421
+#line 495
         if(i_2 < ((&kernelContext_0)->p_1)[0U])
         {
         }
         else
         {
 
-#line 421
+#line 495
             break;
         }
 
-#line 422
+#line 496
         uint _S45 = _S36 + i_2;
 
-#line 422
+#line 496
         *((&kernelContext_0)->y_0+_S45) = *((&kernelContext_0)->y_0+_S45) * inv_0;
 
-#line 421
+#line 495
         i_2 = i_2 + 1U;
 
-#line 421
+#line 495
     }
 
 

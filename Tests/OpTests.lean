@@ -3,7 +3,7 @@ import StablehloMlx
 /-!
 # `op_tests` — every op against ggml-cpu, bit for bit, on the Metal GPU
 
-    op_tests <ref-dir> [case …]
+    op_tests <ref-dir> [--pinned <pinned-ref-dir>] [case …]
 
 `<ref-dir>` is written by `ref/ggml_ref` (ggml-cpu, one op per case). For each
 case this builds the StableHLO module for that ggml op, runs it on the GPU
@@ -16,7 +16,14 @@ platform `erff` with the CPU routine on all 2^32 binary32 inputs, and
 `builtin_divide` / `builtin_sqrt` / `builtin_matmul` measure whether MLX's own
 kernels are exact (they decide which ops need a custom kernel).
 
-A case whose reference directory is missing is a FAIL, not a skip.
+With `--pinned`, every case also runs as the StableHLO that
+contract-ggml-stablehlo emits for it (`<case>/ghlo.mlir`, written by
+`scripts/GhloEmit.lean`), on the generic path, against that repository's
+reference build (`ref/build.sh <dir> pinned`). Two planted faults each: the
+emitter's own wrong lowering (`ghlo.fault.mlir`) and a wrong lowering in this
+executor (binary64 done in binary32, or a while loop one iteration short).
+
+A case whose reference directory or module is missing is a FAIL, not a skip.
 -/
 
 open StablehloMlx
@@ -288,15 +295,87 @@ def erffExhaustive (t : Tally) (chunkLog : Nat := 24) : IO Tally := do
   t ← note t (k != 0) s!"erff_exhaustive planted fault (reference shifted by one input): {k} of {chunk} differ (must be > 0)"
   return t
 
+/-! ## The generic path: contract-ggml-stablehlo's modules -/
+
+def runGhlo (text : String) (ins : Array Arr) (faults : Lower.Faults) : IO (Except String ByteArray) := do
+  runModule text ((#[← u64Scalar 0] : Array Arr) ++ ins) faults true
+
+def ghloCase (pinned : String) (t : Tally) (name : String) : IO Tally := do
+  let dir := pinned ++ "/" ++ name
+  unless ← System.FilePath.pathExists (dir ++ "/ghlo.mlir") do
+    return ← note t false s!"ghlo {name}: module missing ({dir}/ghlo.mlir; run scripts/GhloEmit.lean)"
+  let md ← readMeta dir
+  let text ← IO.FS.readFile (dir ++ "/ghlo.mlir")
+  -- The module's own argument types (rank 4, after the leading ui64 zero).
+  let tys := (Exec.argTys (← Exec.load text)).extract 1
+  let inNames := (md.filter (·.1.startsWith "in")).map (·.1)
+  if tys.size != inNames.size then
+    return ← note t false s!"ghlo {name}: module takes {tys.size} tensors, the case has {inNames.size}"
+  let mut ins := #[]
+  for (n, ty) in inNames.zip tys do
+    ins := ins.push (← Exec.arrOfBytes ty (← IO.FS.readBinFile s!"{dir}/{n}.f32"))
+  eval ins
+  let want ← IO.FS.readBinFile (dir ++ "/out.f32")
+  let count := want.size / 4
+  let mut t := t
+  let t0 ← IO.monoNanosNow
+  let r ← runGhlo text ins {}
+  let ms := ((← IO.monoNanosNow) - t0).toFloat / 1e6
+  match r with
+  | .error e => t ← note t false s!"ghlo {name}: did not run: {e.take 300}"
+  | .ok got =>
+    let (n, first) := diff got want
+    let detail := match first with
+      | some k => s!" first at {k}: got {hex32 (word got k)} want {hex32 (word want k)}"
+      | none => ""
+    t ← note t (n == 0) s!"ghlo {name}: {n} of {count} words differ{detail} ({ms} ms incl. trace)"
+  -- The emitter's planted fault (none for a lone ADD or MUL: see GhloEmit.lean).
+  if ← System.FilePath.pathExists (dir ++ "/ghlo.fault.txt") then
+    let fName := ((← IO.FS.readFile (dir ++ "/ghlo.fault.txt")).trimAscii).toString
+    match ← runGhlo (← IO.FS.readFile (dir ++ "/ghlo.fault.mlir")) ins {} with
+    | .error e => t ← note t true s!"ghlo {name} emitter fault ({fName}): refused: {e.take 100}"
+    | .ok got =>
+      let (n, _) := diff got want
+      t ← note t (n != 0) s!"ghlo {name} emitter fault ({fName}): {n} of {count} differ (must be > 0)"
+  -- This executor's planted fault: the first that the module has something to break for.
+  let has (k : String) := (text.splitOn k).length > 1
+  let pick : Option (Lower.Faults × String) :=
+    if has "f64>" then some ({ f64AsF32 := true }, "binary64 done in binary32")
+    else if has "stablehlo.while" then some ({ whileShort := true }, "while one iteration short")
+    else if has "stablehlo.add\"" || has "stablehlo.multiply\"" then some ({ binaryHalf := true }, "float16 arithmetic")
+    else if has "stablehlo.concatenate" then some ({ concatSwap := true }, "operands swapped")
+    else if has "stablehlo.transpose" then some ({ transposeIdentity := true }, "no permutation")
+    else if has "stablehlo.slice" then some ({ sliceShift := true }, "offset one late")
+    else if has "stablehlo.broadcast_in_dim" then some ({ broadcastFirst := true }, "broadcast of the first element")
+    else none
+  match pick with
+  | none => t ← note t false s!"ghlo {name}: no executor fault applies to this module"
+  | some (fs, fn) =>
+    match ← runGhlo text ins fs with
+    | .error e => t ← note t true s!"ghlo {name} executor fault ({fn}): refused: {e.take 100}"
+    | .ok got =>
+      let (n, _) := diff got want
+      t ← note t (n != 0) s!"ghlo {name} executor fault ({fn}): {n} of {count} differ (must be > 0)"
+  return t
+
 def main (args : List String) : IO UInt32 := do
+  let pinned := match args.dropWhile (· != "--pinned") with
+    | _ :: d :: _ => some d
+    | _ => none
+  let args := match args.dropWhile (· != "--pinned") with
+    | _ :: _ :: rest => args.takeWhile (· != "--pinned") ++ rest
+    | _ => args
   match args with
-  | [] => IO.eprintln "usage: op_tests <ref-dir> [case …]"; return 2
+  | [] => IO.eprintln "usage: op_tests <ref-dir> [--pinned <pinned-ref-dir>] [case …]"; return 2
   | ref :: only =>
     let mut t : Tally := {}
     let want (n : String) := only.isEmpty || only.contains n
     if want "builtin" then t ← builtinProbes t
     for c in cases do
       if want c.name then t ← runCase ref t c
+    if let some p := pinned then
+      for c in cases do
+        if want c.name then t ← ghloCase p t c.name
     if want "erff_exhaustive" then t ← erffExhaustive t
     IO.println s!"\n{t.pass} passed, {t.fail} failed"
     return if t.fail == 0 then 0 else 1

@@ -85,4 +85,22 @@ def divide (a b : Arr) (count : Nat) : IO Arr := do
 def sqrt (a : Arr) (count : Nat) : IO Arr := do
   run "sqrt" #[a, ← params [count]] #[count] dtF32 count 256
 
+/-! Binary64 on uint64 bit patterns (the generic path). -/
+
+def f64Add : Nat := 0
+def f64Sub : Nat := 1
+def f64Mul : Nat := 2
+def f64Div : Nat := 3
+def f64Floor : Nat := 4
+def f64ToI64 : Nat := 5
+
+def f64Ew (op : Nat) (a b : Arr) (count : Nat) : IO Arr := do
+  run "f64_ew" #[a, b, ← params [count, op]] #[count] dtU64 count 256
+
+def f64OfF32 (a : Arr) (count : Nat) : IO Arr := do
+  run "f64_of_f32" #[a, ← params [count]] #[count] dtU64 count 256
+
+def f32OfF64 (a : Arr) (count : Nat) : IO Arr := do
+  run "f32_of_f64" #[a, ← params [count]] #[count] dtF32 count 256
+
 end StablehloMlx.Kernels.Run

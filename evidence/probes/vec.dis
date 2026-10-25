@@ -1,0 +1,1571 @@
+
+vec.cpp.o:	file format mach-o arm64
+
+Disassembly of section __TEXT,__text:
+
+0000000000000000 <ltmp0>:
+       0:      	and	w8, w0, #0xfffffff0
+       4:      	movi.2d	v0, #0000000000000000
+       8:      	cmp	w0, #0x10
+       c:      	b.lt	0x60 <ltmp0+0x60>
+      10:      	mov	x9, #0x0                ; =0
+      14:      	add	x10, x3, #0x20
+      18:      	add	x11, x5, #0x20
+      1c:      	movi.2d	v1, #0000000000000000
+      20:      	movi.2d	v2, #0000000000000000
+      24:      	movi.2d	v3, #0000000000000000
+      28:      	ldp	q4, q5, [x10, #-0x20]
+      2c:      	ldp	q6, q7, [x11, #-0x20]
+      30:      	fmla.4s	v3, v6, v4
+      34:      	fmla.4s	v2, v7, v5
+      38:      	ldp	q4, q5, [x10], #0x40
+      3c:      	ldp	q6, q7, [x11], #0x40
+      40:      	fmla.4s	v1, v6, v4
+      44:      	fmla.4s	v0, v7, v5
+      48:      	add	x9, x9, #0x10
+      4c:      	cmp	x9, x8
+      50:      	b.lo	0x28 <ltmp0+0x28>
+      54:      	fadd.4s	v1, v3, v1
+      58:      	fadd.4s	v0, v2, v0
+      5c:      	fadd.4s	v0, v1, v0
+      60:      	faddp.4s	v0, v0, v0
+      64:      	faddp.2s	s0, v0
+      68:      	cmp	w8, w0
+      6c:      	b.eq	0x1e4 <ltmp0+0x1e4>
+      70:      	sxtw	x9, w8
+      74:      	sxtw	x8, w0
+      78:      	orr	x10, x9, #0x1
+      7c:      	cmp	x10, x8
+      80:      	csinc	x10, x8, x9, le
+      84:      	sub	x11, x10, x9
+      88:      	cmp	x11, #0x3
+      8c:      	b.hi	0x98 <ltmp0+0x98>
+      90:      	mov	x11, x9
+      94:      	b	0x1cc <ltmp0+0x1cc>
+      98:      	cmp	x11, #0x10
+      9c:      	b.hs	0xa8 <ltmp0+0xa8>
+      a0:      	mov	x12, #0x0               ; =0
+      a4:      	b	0x174 <ltmp0+0x174>
+      a8:      	and	x13, x10, #0xf
+      ac:      	sub	x12, x11, x13
+      b0:      	add	x14, x9, x13
+      b4:      	sub	x14, x14, x10
+      b8:      	lsl	x15, x9, #2
+      bc:      	add	x16, x15, #0x20
+      c0:      	add	x15, x3, x16
+      c4:      	add	x16, x5, x16
+      c8:      	ldp	q1, q2, [x15, #-0x20]
+      cc:      	ldp	q3, q4, [x15], #0x40
+      d0:      	ldp	q5, q6, [x16, #-0x20]
+      d4:      	ldp	q7, q16, [x16], #0x40
+      d8:      	fmul.4s	v1, v1, v5
+      dc:      	mov	s5, v1[3]
+      e0:      	mov	s17, v1[2]
+      e4:      	mov	s18, v1[1]
+      e8:      	fmul.4s	v2, v2, v6
+      ec:      	mov	s6, v2[3]
+      f0:      	mov	s19, v2[2]
+      f4:      	mov	s20, v2[1]
+      f8:      	fmul.4s	v3, v3, v7
+      fc:      	mov	s7, v3[3]
+     100:      	mov	s21, v3[2]
+     104:      	mov	s22, v3[1]
+     108:      	fmul.4s	v4, v4, v16
+     10c:      	mov	s16, v4[3]
+     110:      	mov	s23, v4[2]
+     114:      	mov	s24, v4[1]
+     118:      	fadd	s0, s0, s1
+     11c:      	fadd	s0, s0, s18
+     120:      	fadd	s0, s0, s17
+     124:      	fadd	s0, s0, s5
+     128:      	fadd	s0, s0, s2
+     12c:      	fadd	s0, s0, s20
+     130:      	fadd	s0, s0, s19
+     134:      	fadd	s0, s0, s6
+     138:      	fadd	s0, s0, s3
+     13c:      	fadd	s0, s0, s22
+     140:      	fadd	s0, s0, s21
+     144:      	fadd	s0, s0, s7
+     148:      	fadd	s0, s0, s4
+     14c:      	fadd	s0, s0, s24
+     150:      	fadd	s0, s0, s23
+     154:      	fadd	s0, s0, s16
+     158:      	adds	x14, x14, #0x10
+     15c:      	b.ne	0xc8 <ltmp0+0xc8>
+     160:      	cbz	x13, 0x1e4 <ltmp0+0x1e4>
+     164:      	cmp	x13, #0x4
+     168:      	b.hs	0x174 <ltmp0+0x174>
+     16c:      	add	x11, x12, x9
+     170:      	b	0x1cc <ltmp0+0x1cc>
+     174:      	and	x13, x10, #0x3
+     178:      	sub	x11, x11, x13
+     17c:      	add	x11, x11, x9
+     180:      	add	x12, x12, x9
+     184:      	add	x9, x12, x13
+     188:      	sub	x9, x9, x10
+     18c:      	lsl	x12, x12, #2
+     190:      	add	x10, x5, x12
+     194:      	add	x12, x3, x12
+     198:      	ldr	q1, [x12], #0x10
+     19c:      	ldr	q2, [x10], #0x10
+     1a0:      	fmul.4s	v1, v1, v2
+     1a4:      	mov	s2, v1[3]
+     1a8:      	mov	s3, v1[2]
+     1ac:      	mov	s4, v1[1]
+     1b0:      	fadd	s0, s0, s1
+     1b4:      	fadd	s0, s0, s4
+     1b8:      	fadd	s0, s0, s3
+     1bc:      	fadd	s0, s0, s2
+     1c0:      	adds	x9, x9, #0x4
+     1c4:      	b.ne	0x198 <ltmp0+0x198>
+     1c8:      	cbz	x13, 0x1e4 <ltmp0+0x1e4>
+     1cc:      	ldr	s1, [x3, x11, lsl #2]
+     1d0:      	ldr	s2, [x5, x11, lsl #2]
+     1d4:      	fmadd	s0, s1, s2, s0
+     1d8:      	add	x11, x11, #0x1
+     1dc:      	cmp	x11, x8
+     1e0:      	b.lt	0x1cc <ltmp0+0x1cc>
+     1e4:      	str	s0, [x1]
+     1e8:      	ret
+
+00000000000001ec <_ggml_vec_dot_bf16>:
+     1ec:      	cmp	w0, #0x1
+     1f0:      	b.lt	0x20c <_ggml_vec_dot_bf16+0x20>
+     1f4:      	mov	w8, w0
+     1f8:      	cmp	w0, #0x4
+     1fc:      	b.hs	0x218 <_ggml_vec_dot_bf16+0x2c>
+     200:      	mov	x9, #0x0                ; =0
+     204:      	movi.2d	v0, #0000000000000000
+     208:      	b	0x374 <_ggml_vec_dot_bf16+0x188>
+     20c:      	movi.2d	v0, #0000000000000000
+     210:      	str	s0, [x1]
+     214:      	ret
+     218:      	cmp	w0, #0x10
+     21c:      	b.hs	0x22c <_ggml_vec_dot_bf16+0x40>
+     220:      	mov	x9, #0x0                ; =0
+     224:      	movi.2d	v0, #0000000000000000
+     228:      	b	0x318 <_ggml_vec_dot_bf16+0x12c>
+     22c:      	and	x9, x8, #0x7ffffff0
+     230:      	add	x10, x3, #0x10
+     234:      	add	x11, x5, #0x10
+     238:      	movi.2d	v0, #0000000000000000
+     23c:      	mov	x12, x9
+     240:      	ldp	d1, d2, [x10, #-0x10]
+     244:      	ldp	d3, d4, [x10], #0x20
+     248:      	shll.4s	v1, v1, #16
+     24c:      	shll.4s	v2, v2, #16
+     250:      	shll.4s	v3, v3, #16
+     254:      	shll.4s	v4, v4, #16
+     258:      	ldp	d5, d6, [x11, #-0x10]
+     25c:      	ldp	d7, d16, [x11], #0x20
+     260:      	shll.4s	v5, v5, #16
+     264:      	shll.4s	v6, v6, #16
+     268:      	shll.4s	v7, v7, #16
+     26c:      	shll.4s	v16, v16, #16
+     270:      	fmul.4s	v1, v1, v5
+     274:      	fmul.4s	v2, v2, v6
+     278:      	fmul.4s	v3, v3, v7
+     27c:      	fmul.4s	v4, v4, v16
+     280:      	fcvtl2	v5.2d, v1.4s
+     284:      	mov	d6, v5[1]
+     288:      	fcvtl	v1.2d, v1.2s
+     28c:      	mov	d7, v1[1]
+     290:      	fcvtl2	v16.2d, v2.4s
+     294:      	mov	d17, v16[1]
+     298:      	fcvtl	v2.2d, v2.2s
+     29c:      	mov	d18, v2[1]
+     2a0:      	fcvtl2	v19.2d, v3.4s
+     2a4:      	mov	d20, v19[1]
+     2a8:      	fcvtl	v3.2d, v3.2s
+     2ac:      	mov	d21, v3[1]
+     2b0:      	fcvtl2	v22.2d, v4.4s
+     2b4:      	mov	d23, v22[1]
+     2b8:      	fcvtl	v4.2d, v4.2s
+     2bc:      	mov	d24, v4[1]
+     2c0:      	fadd	d0, d0, d1
+     2c4:      	fadd	d0, d0, d7
+     2c8:      	fadd	d0, d0, d5
+     2cc:      	fadd	d0, d0, d6
+     2d0:      	fadd	d0, d0, d2
+     2d4:      	fadd	d0, d0, d18
+     2d8:      	fadd	d0, d0, d16
+     2dc:      	fadd	d0, d0, d17
+     2e0:      	fadd	d0, d0, d3
+     2e4:      	fadd	d0, d0, d21
+     2e8:      	fadd	d0, d0, d19
+     2ec:      	fadd	d0, d0, d20
+     2f0:      	fadd	d0, d0, d4
+     2f4:      	fadd	d0, d0, d24
+     2f8:      	fadd	d0, d0, d22
+     2fc:      	fadd	d0, d0, d23
+     300:      	subs	x12, x12, #0x10
+     304:      	b.ne	0x240 <_ggml_vec_dot_bf16+0x54>
+     308:      	cmp	x9, x8
+     30c:      	b.eq	0x3b0 <_ggml_vec_dot_bf16+0x1c4>
+     310:      	tst	x8, #0xc
+     314:      	b.eq	0x374 <_ggml_vec_dot_bf16+0x188>
+     318:      	mov	x11, x9
+     31c:      	and	x9, x8, #0x7ffffffc
+     320:      	sub	x10, x11, x9
+     324:      	lsl	x12, x11, #1
+     328:      	add	x11, x5, x12
+     32c:      	add	x12, x3, x12
+     330:      	ldr	d1, [x12], #0x8
+     334:      	ldr	d2, [x11], #0x8
+     338:      	shll.4s	v1, v1, #16
+     33c:      	shll.4s	v2, v2, #16
+     340:      	fmul.4s	v1, v1, v2
+     344:      	fcvtl2	v2.2d, v1.4s
+     348:      	mov	d3, v2[1]
+     34c:      	fcvtl	v1.2d, v1.2s
+     350:      	mov	d4, v1[1]
+     354:      	fadd	d0, d0, d1
+     358:      	fadd	d0, d0, d4
+     35c:      	fadd	d0, d0, d2
+     360:      	fadd	d0, d0, d3
+     364:      	adds	x10, x10, #0x4
+     368:      	b.ne	0x330 <_ggml_vec_dot_bf16+0x144>
+     36c:      	cmp	x9, x8
+     370:      	b.eq	0x3b0 <_ggml_vec_dot_bf16+0x1c4>
+     374:      	lsl	x11, x9, #1
+     378:      	add	x10, x5, x11
+     37c:      	add	x11, x3, x11
+     380:      	sub	x8, x8, x9
+     384:      	ldrh	w9, [x11], #0x2
+     388:      	lsl	w9, w9, #16
+     38c:      	fmov	s1, w9
+     390:      	ldrh	w9, [x10], #0x2
+     394:      	lsl	w9, w9, #16
+     398:      	fmov	s2, w9
+     39c:      	fmul	s1, s1, s2
+     3a0:      	fcvt	d1, s1
+     3a4:      	fadd	d0, d0, d1
+     3a8:      	subs	x8, x8, #0x1
+     3ac:      	b.ne	0x384 <_ggml_vec_dot_bf16+0x198>
+     3b0:      	fcvt	s0, d0
+     3b4:      	str	s0, [x1]
+     3b8:      	ret
+
+00000000000003bc <_ggml_vec_dot_f16>:
+     3bc:      	and	w8, w0, #0xffffffe0
+     3c0:      	movi.2d	v0, #0000000000000000
+     3c4:      	cmp	w0, #0x20
+     3c8:      	b.lt	0x41c <_ggml_vec_dot_f16+0x60>
+     3cc:      	mov	x9, #0x0                ; =0
+     3d0:      	add	x10, x3, #0x20
+     3d4:      	add	x11, x5, #0x20
+     3d8:      	movi.2d	v1, #0000000000000000
+     3dc:      	movi.2d	v2, #0000000000000000
+     3e0:      	movi.2d	v3, #0000000000000000
+     3e4:      	ldp	q4, q5, [x10, #-0x20]
+     3e8:      	ldp	q6, q7, [x11, #-0x20]
+     3ec:      	fmla.8h	v3, v6, v4
+     3f0:      	fmla.8h	v2, v7, v5
+     3f4:      	ldp	q4, q5, [x10], #0x40
+     3f8:      	ldp	q6, q7, [x11], #0x40
+     3fc:      	fmla.8h	v1, v6, v4
+     400:      	fmla.8h	v0, v7, v5
+     404:      	add	x9, x9, #0x20
+     408:      	cmp	x9, x8
+     40c:      	b.lo	0x3e4 <_ggml_vec_dot_f16+0x28>
+     410:      	fadd.8h	v1, v3, v1
+     414:      	fadd.8h	v0, v2, v0
+     418:      	fadd.8h	v0, v1, v0
+     41c:      	fcvtl	v1.4s, v0.4h
+     420:      	fcvtl2	v0.4s, v0.8h
+     424:      	fadd.4s	v0, v1, v0
+     428:      	faddp.4s	v0, v0, v0
+     42c:      	faddp.2s	s0, v0
+     430:      	cmp	w8, w0
+     434:      	b.eq	0x6b0 <_ggml_vec_dot_f16+0x2f4>
+     438:      	fcvt	d0, s0
+     43c:      	sxtw	x9, w8
+     440:      	sxtw	x8, w0
+     444:      	orr	x10, x9, #0x1
+     448:      	cmp	x10, x8
+     44c:      	csinc	x10, x8, x9, le
+     450:      	sub	x11, x10, x9
+     454:      	cmp	x11, #0x3
+     458:      	b.hi	0x464 <_ggml_vec_dot_f16+0xa8>
+     45c:      	mov	x11, x9
+     460:      	b	0x684 <_ggml_vec_dot_f16+0x2c8>
+     464:      	cmp	x11, #0x20
+     468:      	b.hs	0x474 <_ggml_vec_dot_f16+0xb8>
+     46c:      	mov	x12, #0x0               ; =0
+     470:      	b	0x620 <_ggml_vec_dot_f16+0x264>
+     474:      	and	x13, x10, #0x1f
+     478:      	sub	x12, x11, x13
+     47c:      	add	x14, x9, x13
+     480:      	sub	x14, x14, x10
+     484:      	lsl	x15, x9, #1
+     488:      	add	x16, x15, #0x20
+     48c:      	add	x15, x3, x16
+     490:      	add	x16, x5, x16
+     494:      	ldp	q1, q2, [x15, #-0x20]
+     498:      	ldp	q3, q17, [x15], #0x40
+     49c:      	fcvtl2	v4.4s, v1.8h
+     4a0:      	fcvtl	v1.4s, v1.4h
+     4a4:      	fcvtl2	v5.4s, v2.8h
+     4a8:      	fcvtl	v2.4s, v2.4h
+     4ac:      	fcvtl2	v18.4s, v3.8h
+     4b0:      	fcvtl	v3.4s, v3.4h
+     4b4:      	ldp	q6, q19, [x16, #-0x20]
+     4b8:      	fcvtl2	v7.4s, v6.8h
+     4bc:      	fcvtl	v6.4s, v6.4h
+     4c0:      	fmul.4s	v16, v1, v6
+     4c4:      	fcvtl	v1.4s, v19.4h
+     4c8:      	fmul.4s	v7, v4, v7
+     4cc:      	fmul.4s	v6, v2, v1
+     4d0:      	ldp	q1, q20, [x16], #0x40
+     4d4:      	fcvtl2	v2.4s, v19.8h
+     4d8:      	fmul.4s	v5, v5, v2
+     4dc:      	fcvtl	v2.4s, v1.4h
+     4e0:      	fmul.4s	v4, v3, v2
+     4e4:      	fcvtl	v2.4s, v17.4h
+     4e8:      	fcvtl2	v1.4s, v1.8h
+     4ec:      	fmul.4s	v3, v18, v1
+     4f0:      	fcvtl	v1.4s, v20.4h
+     4f4:      	fmul.4s	v2, v2, v1
+     4f8:      	fcvtl2	v1.4s, v17.8h
+     4fc:      	fcvtl2	v17.4s, v20.8h
+     500:      	fmul.4s	v1, v1, v17
+     504:      	fcvtl	v17.2d, v16.2s
+     508:      	fadd	d0, d0, d17
+     50c:      	mov	d17, v17[1]
+     510:      	fadd	d0, d0, d17
+     514:      	fcvtl2	v16.2d, v16.4s
+     518:      	fadd	d0, d0, d16
+     51c:      	mov	d16, v16[1]
+     520:      	fadd	d0, d0, d16
+     524:      	fcvtl	v16.2d, v7.2s
+     528:      	fadd	d0, d0, d16
+     52c:      	mov	d16, v16[1]
+     530:      	fadd	d0, d0, d16
+     534:      	fcvtl2	v7.2d, v7.4s
+     538:      	fadd	d0, d0, d7
+     53c:      	mov	d7, v7[1]
+     540:      	fadd	d0, d0, d7
+     544:      	fcvtl	v7.2d, v6.2s
+     548:      	fadd	d0, d0, d7
+     54c:      	mov	d7, v7[1]
+     550:      	fadd	d0, d0, d7
+     554:      	fcvtl2	v6.2d, v6.4s
+     558:      	fadd	d0, d0, d6
+     55c:      	mov	d6, v6[1]
+     560:      	fadd	d0, d0, d6
+     564:      	fcvtl	v6.2d, v5.2s
+     568:      	fadd	d0, d0, d6
+     56c:      	mov	d6, v6[1]
+     570:      	fadd	d0, d0, d6
+     574:      	fcvtl2	v5.2d, v5.4s
+     578:      	fadd	d0, d0, d5
+     57c:      	mov	d5, v5[1]
+     580:      	fadd	d0, d0, d5
+     584:      	fcvtl	v5.2d, v4.2s
+     588:      	fadd	d0, d0, d5
+     58c:      	mov	d5, v5[1]
+     590:      	fadd	d0, d0, d5
+     594:      	fcvtl2	v4.2d, v4.4s
+     598:      	fadd	d0, d0, d4
+     59c:      	mov	d4, v4[1]
+     5a0:      	fadd	d0, d0, d4
+     5a4:      	fcvtl	v4.2d, v3.2s
+     5a8:      	fadd	d0, d0, d4
+     5ac:      	mov	d4, v4[1]
+     5b0:      	fadd	d0, d0, d4
+     5b4:      	fcvtl2	v3.2d, v3.4s
+     5b8:      	fadd	d0, d0, d3
+     5bc:      	mov	d3, v3[1]
+     5c0:      	fadd	d0, d0, d3
+     5c4:      	fcvtl	v3.2d, v2.2s
+     5c8:      	fadd	d0, d0, d3
+     5cc:      	mov	d3, v3[1]
+     5d0:      	fadd	d0, d0, d3
+     5d4:      	fcvtl2	v2.2d, v2.4s
+     5d8:      	fadd	d0, d0, d2
+     5dc:      	mov	d2, v2[1]
+     5e0:      	fadd	d0, d0, d2
+     5e4:      	fcvtl	v2.2d, v1.2s
+     5e8:      	fadd	d0, d0, d2
+     5ec:      	mov	d2, v2[1]
+     5f0:      	fadd	d0, d0, d2
+     5f4:      	fcvtl2	v1.2d, v1.4s
+     5f8:      	fadd	d0, d0, d1
+     5fc:      	mov	d1, v1[1]
+     600:      	fadd	d0, d0, d1
+     604:      	adds	x14, x14, #0x20
+     608:      	b.ne	0x494 <_ggml_vec_dot_f16+0xd8>
+     60c:      	cbz	x13, 0x6ac <_ggml_vec_dot_f16+0x2f0>
+     610:      	cmp	x13, #0x4
+     614:      	b.hs	0x620 <_ggml_vec_dot_f16+0x264>
+     618:      	add	x11, x12, x9
+     61c:      	b	0x684 <_ggml_vec_dot_f16+0x2c8>
+     620:      	and	x13, x10, #0x3
+     624:      	sub	x11, x11, x13
+     628:      	add	x11, x11, x9
+     62c:      	add	x12, x12, x9
+     630:      	add	x9, x12, x13
+     634:      	sub	x9, x9, x10
+     638:      	lsl	x12, x12, #1
+     63c:      	add	x10, x5, x12
+     640:      	add	x12, x3, x12
+     644:      	ldr	d1, [x12], #0x8
+     648:      	ldr	d2, [x10], #0x8
+     64c:      	fcvtl	v1.4s, v1.4h
+     650:      	fcvtl	v2.4s, v2.4h
+     654:      	fmul.4s	v1, v1, v2
+     658:      	fcvtl2	v2.2d, v1.4s
+     65c:      	mov	d3, v2[1]
+     660:      	fcvtl	v1.2d, v1.2s
+     664:      	mov	d4, v1[1]
+     668:      	fadd	d0, d0, d1
+     66c:      	fadd	d0, d0, d4
+     670:      	fadd	d0, d0, d2
+     674:      	fadd	d0, d0, d3
+     678:      	adds	x9, x9, #0x4
+     67c:      	b.ne	0x644 <_ggml_vec_dot_f16+0x288>
+     680:      	cbz	x13, 0x6ac <_ggml_vec_dot_f16+0x2f0>
+     684:      	ldr	h1, [x3, x11, lsl #1]
+     688:      	fcvt	s1, h1
+     68c:      	ldr	h2, [x5, x11, lsl #1]
+     690:      	fcvt	s2, h2
+     694:      	fmul	s1, s1, s2
+     698:      	fcvt	d1, s1
+     69c:      	fadd	d0, d0, d1
+     6a0:      	add	x11, x11, #0x1
+     6a4:      	cmp	x11, x8
+     6a8:      	b.lt	0x684 <_ggml_vec_dot_f16+0x2c8>
+     6ac:      	fcvt	s0, d0
+     6b0:      	str	s0, [x1]
+     6b4:      	ret
+
+00000000000006b8 <_ggml_vec_silu_f32>:
+     6b8:      	sub	sp, sp, #0xb0
+     6bc:      	stp	d9, d8, [sp, #0x40]
+     6c0:      	stp	x28, x27, [sp, #0x50]
+     6c4:      	stp	x26, x25, [sp, #0x60]
+     6c8:      	stp	x24, x23, [sp, #0x70]
+     6cc:      	stp	x22, x21, [sp, #0x80]
+     6d0:      	stp	x20, x19, [sp, #0x90]
+     6d4:      	stp	x29, x30, [sp, #0xa0]
+     6d8:      	add	x29, sp, #0xa0
+     6dc:      	mov	w19, w0
+     6e0:      	cmp	w0, #0x4
+     6e4:      	b.lt	0x830 <_ggml_vec_silu_f32+0x178>
+     6e8:      	mov	x8, #0x0                ; =0
+     6ec:      	mov	w9, #0xaa3b             ; =43579
+     6f0:      	movk	w9, #0x3fb8, lsl #16
+     6f4:      	dup.4s	v0, w9
+     6f8:      	mov	w9, #0x4b400000         ; =1262485504
+     6fc:      	dup.4s	v1, w9
+     700:      	mov	w9, #-0x34c00000        ; =-884998144
+     704:      	dup.4s	v2, w9
+     708:      	mov	w9, #0x7200             ; =29184
+     70c:      	movk	w9, #0xbf31, lsl #16
+     710:      	dup.4s	v3, w9
+     714:      	movi.2d	v4, #0000000000000000
+     718:      	mov	w9, #0xbe8e             ; =48782
+     71c:      	movk	w9, #0xb5bf, lsl #16
+     720:      	dup.4s	v5, w9
+     724:      	fmov.4s	v6, #1.00000000
+     728:      	mov	w9, #0x42fc0000         ; =1123811328
+     72c:      	dup.4s	v7, w9
+     730:      	mov	w9, #0xfff6             ; =65526
+     734:      	movk	w9, #0x3f7f, lsl #16
+     738:      	dup.4s	v16, w9
+     73c:      	mov	w9, #0xaf33             ; =44851
+     740:      	movk	w9, #0x3e2a, lsl #16
+     744:      	dup.4s	v17, w9
+     748:      	mov	w9, #0xfedb             ; =65243
+     74c:      	movk	w9, #0x3eff, lsl #16
+     750:      	dup.4s	v18, w9
+     754:      	mov	w9, #0x2010             ; =8208
+     758:      	movk	w9, #0x3c07, lsl #16
+     75c:      	dup.4s	v19, w9
+     760:      	mov	w9, #0x9f17             ; =40727
+     764:      	movk	w9, #0x3d2b, lsl #16
+     768:      	dup.4s	v20, w9
+     76c:      	movi.4s	v21, #0x82, lsl #24
+     770:      	movi.4s	v22, #0x7f, lsl #24
+     774:      	mov	w9, #0x43400000         ; =1128267776
+     778:      	dup.4s	v23, w9
+     77c:      	mov	x9, x2
+     780:      	mov	x10, x1
+     784:      	b	0x7d4 <_ggml_vec_silu_f32+0x11c>
+     788:      	fcmle.4s	v30, v26, #0.0
+     78c:      	and.16b	v30, v30, v21
+     790:      	add.4s	v31, v30, v22
+     794:      	sub.4s	v29, v29, v30
+     798:      	facgt.4s	v26, v26, v23
+     79c:      	fmul.4s	v30, v31, v31
+     7a0:      	fmla.4s	v29, v28, v29
+     7a4:      	fmul.4s	v29, v29, v31
+     7a8:      	fmla.4s	v25, v28, v25
+     7ac:      	bit.16b	v25, v29, v27
+     7b0:      	bit.16b	v25, v30, v26
+     7b4:      	fadd.4s	v25, v25, v6
+     7b8:      	fdiv.4s	v24, v24, v25
+     7bc:      	str	q24, [x10], #0x10
+     7c0:      	add	x11, x8, #0x4
+     7c4:      	add	x12, x8, #0x7
+     7c8:      	mov	x8, x11
+     7cc:      	cmp	x12, x19
+     7d0:      	b.hs	0x834 <_ggml_vec_silu_f32+0x17c>
+     7d4:      	ldr	q24, [x9], #0x10
+     7d8:      	fsub.4s	v30, v4, v24
+     7dc:      	mov.16b	v25, v1
+     7e0:      	fmla.4s	v25, v0, v30
+     7e4:      	fadd.4s	v26, v25, v2
+     7e8:      	fmla.4s	v30, v3, v26
+     7ec:      	fmla.4s	v30, v5, v26
+     7f0:      	shl.4s	v29, v25, #0x17
+     7f4:      	add.4s	v25, v29, v6
+     7f8:      	facgt.4s	v27, v26, v7
+     7fc:      	fmul.4s	v31, v30, v30
+     800:      	fmul.4s	v28, v30, v16
+     804:      	mov.16b	v8, v18
+     808:      	fmla.4s	v8, v17, v30
+     80c:      	mov.16b	v9, v20
+     810:      	fmla.4s	v9, v19, v30
+     814:      	fmla.4s	v8, v31, v9
+     818:      	fmla.4s	v28, v31, v8
+     81c:      	addp.2d	d30, v27
+     820:      	fmov	x11, d30
+     824:      	cbnz	x11, 0x788 <_ggml_vec_silu_f32+0xd0>
+     828:      	fmla.4s	v25, v25, v28
+     82c:      	b	0x7b4 <_ggml_vec_silu_f32+0xfc>
+     830:      	mov	w11, #0x0               ; =0
+     834:      	cmp	w11, w0
+     838:      	b.ge	0x944 <_ggml_vec_silu_f32+0x28c>
+     83c:      	mov	w8, w11
+     840:      	sub	x21, x19, x8
+     844:      	cmp	x21, #0x4
+     848:      	b.lo	0x90c <_ggml_vec_silu_f32+0x254>
+     84c:      	sub	x9, x1, x2
+     850:      	cmp	x9, #0x10
+     854:      	b.lo	0x90c <_ggml_vec_silu_f32+0x254>
+     858:      	and	x22, x21, #0xfffffffffffffffc
+     85c:      	add	x20, x22, x8
+     860:      	lsl	x8, x8, #2
+     864:      	mov	x23, x1
+     868:      	add	x25, x1, x8
+     86c:      	mov	x24, x2
+     870:      	add	x26, x2, x8
+     874:      	fmov.4s	v0, #1.00000000
+     878:      	str	q0, [sp]
+     87c:      	mov	x27, x22
+     880:      	ldr	q0, [x26], #0x10
+     884:      	str	q0, [sp, #0x10]
+     888:      	fneg.4s	v0, v0
+     88c:      	str	q0, [sp, #0x30]
+     890:      	mov	s0, v0[1]
+     894:      	bl	0x894 <_ggml_vec_silu_f32+0x1dc>
+     898:      	str	q0, [sp, #0x20]
+     89c:      	ldr	q0, [sp, #0x30]
+     8a0:      	bl	0x8a0 <_ggml_vec_silu_f32+0x1e8>
+     8a4:      	ldr	q1, [sp, #0x20]
+     8a8:      	mov.s	v0[1], v1[0]
+     8ac:      	str	q0, [sp, #0x20]
+     8b0:      	ldr	q0, [sp, #0x30]
+     8b4:      	mov	s0, v0[2]
+     8b8:      	bl	0x8b8 <_ggml_vec_silu_f32+0x200>
+     8bc:      	ldr	q1, [sp, #0x20]
+     8c0:      	mov.s	v1[2], v0[0]
+     8c4:      	str	q1, [sp, #0x20]
+     8c8:      	ldr	q0, [sp, #0x30]
+     8cc:      	mov	s0, v0[3]
+     8d0:      	bl	0x8d0 <_ggml_vec_silu_f32+0x218>
+     8d4:      	ldr	q1, [sp, #0x20]
+     8d8:      	mov.s	v1[3], v0[0]
+     8dc:      	ldr	q0, [sp]
+     8e0:      	fadd.4s	v0, v1, v0
+     8e4:      	ldr	q1, [sp, #0x10]
+     8e8:      	fdiv.4s	v0, v1, v0
+     8ec:      	str	q0, [x25], #0x10
+     8f0:      	subs	x27, x27, #0x4
+     8f4:      	b.ne	0x880 <_ggml_vec_silu_f32+0x1c8>
+     8f8:      	cmp	x21, x22
+     8fc:      	mov	x2, x24
+     900:      	mov	x1, x23
+     904:      	b.ne	0x910 <_ggml_vec_silu_f32+0x258>
+     908:      	b	0x944 <_ggml_vec_silu_f32+0x28c>
+     90c:      	mov	x20, x8
+     910:      	lsl	x8, x20, #2
+     914:      	add	x21, x1, x8
+     918:      	add	x22, x2, x8
+     91c:      	sub	x19, x19, x20
+     920:      	fmov	s8, #1.00000000
+     924:      	ldr	s9, [x22], #0x4
+     928:      	fneg	s0, s9
+     92c:      	bl	0x92c <_ggml_vec_silu_f32+0x274>
+     930:      	fadd	s0, s0, s8
+     934:      	fdiv	s0, s9, s0
+     938:      	str	s0, [x21], #0x4
+     93c:      	subs	x19, x19, #0x1
+     940:      	b.ne	0x924 <_ggml_vec_silu_f32+0x26c>
+     944:      	ldp	x29, x30, [sp, #0xa0]
+     948:      	ldp	x20, x19, [sp, #0x90]
+     94c:      	ldp	x22, x21, [sp, #0x80]
+     950:      	ldp	x24, x23, [sp, #0x70]
+     954:      	ldp	x26, x25, [sp, #0x60]
+     958:      	ldp	x28, x27, [sp, #0x50]
+     95c:      	ldp	d9, d8, [sp, #0x40]
+     960:      	add	sp, sp, #0xb0
+     964:      	ret
+
+0000000000000968 <_ggml_vec_swiglu_f32>:
+     968:      	sub	sp, sp, #0xc0
+     96c:      	stp	d9, d8, [sp, #0x50]
+     970:      	stp	x28, x27, [sp, #0x60]
+     974:      	stp	x26, x25, [sp, #0x70]
+     978:      	stp	x24, x23, [sp, #0x80]
+     97c:      	stp	x22, x21, [sp, #0x90]
+     980:      	stp	x20, x19, [sp, #0xa0]
+     984:      	stp	x29, x30, [sp, #0xb0]
+     988:      	add	x29, sp, #0xb0
+     98c:      	mov	w19, w0
+     990:      	cmp	w0, #0x4
+     994:      	b.lt	0xaec <_ggml_vec_swiglu_f32+0x184>
+     998:      	mov	x8, #0x0                ; =0
+     99c:      	movi.2d	v0, #0000000000000000
+     9a0:      	mov	w9, #0xaa3b             ; =43579
+     9a4:      	movk	w9, #0x3fb8, lsl #16
+     9a8:      	dup.4s	v1, w9
+     9ac:      	mov	w9, #0x4b400000         ; =1262485504
+     9b0:      	dup.4s	v2, w9
+     9b4:      	mov	w9, #-0x34c00000        ; =-884998144
+     9b8:      	dup.4s	v3, w9
+     9bc:      	mov	w9, #0x7200             ; =29184
+     9c0:      	movk	w9, #0xbf31, lsl #16
+     9c4:      	dup.4s	v4, w9
+     9c8:      	mov	w9, #0xbe8e             ; =48782
+     9cc:      	movk	w9, #0xb5bf, lsl #16
+     9d0:      	dup.4s	v5, w9
+     9d4:      	mov	w9, #0x42fc0000         ; =1123811328
+     9d8:      	dup.4s	v6, w9
+     9dc:      	mov	w9, #0xfff6             ; =65526
+     9e0:      	movk	w9, #0x3f7f, lsl #16
+     9e4:      	dup.4s	v7, w9
+     9e8:      	mov	w9, #0xaf33             ; =44851
+     9ec:      	movk	w9, #0x3e2a, lsl #16
+     9f0:      	dup.4s	v16, w9
+     9f4:      	mov	w9, #0xfedb             ; =65243
+     9f8:      	movk	w9, #0x3eff, lsl #16
+     9fc:      	dup.4s	v17, w9
+     a00:      	mov	w9, #0x2010             ; =8208
+     a04:      	movk	w9, #0x3c07, lsl #16
+     a08:      	dup.4s	v18, w9
+     a0c:      	fmov.4s	v19, #1.00000000
+     a10:      	mov	w9, #0x9f17             ; =40727
+     a14:      	movk	w9, #0x3d2b, lsl #16
+     a18:      	dup.4s	v20, w9
+     a1c:      	movi.4s	v21, #0x82, lsl #24
+     a20:      	movi.4s	v22, #0x7f, lsl #24
+     a24:      	mov	w9, #0x43400000         ; =1128267776
+     a28:      	dup.4s	v23, w9
+     a2c:      	mov	x9, x2
+     a30:      	mov	x10, x3
+     a34:      	mov	x11, x1
+     a38:      	b	0xa90 <_ggml_vec_swiglu_f32+0x128>
+     a3c:      	fcmle.4s	v30, v26, #0.0
+     a40:      	and.16b	v30, v30, v21
+     a44:      	add.4s	v31, v30, v22
+     a48:      	sub.4s	v29, v29, v30
+     a4c:      	facgt.4s	v26, v26, v23
+     a50:      	fmul.4s	v30, v31, v31
+     a54:      	fmla.4s	v29, v28, v29
+     a58:      	fmul.4s	v29, v29, v31
+     a5c:      	fmla.4s	v25, v28, v25
+     a60:      	bit.16b	v25, v29, v27
+     a64:      	bit.16b	v25, v30, v26
+     a68:      	fadd.4s	v25, v25, v19
+     a6c:      	fdiv.4s	v24, v24, v25
+     a70:      	ldr	q25, [x10], #0x10
+     a74:      	fmul.4s	v24, v25, v24
+     a78:      	str	q24, [x11], #0x10
+     a7c:      	add	x12, x8, #0x4
+     a80:      	add	x13, x8, #0x7
+     a84:      	mov	x8, x12
+     a88:      	cmp	x13, x19
+     a8c:      	b.hs	0xaf0 <_ggml_vec_swiglu_f32+0x188>
+     a90:      	ldr	q24, [x9], #0x10
+     a94:      	fsub.4s	v30, v0, v24
+     a98:      	mov.16b	v25, v2
+     a9c:      	fmla.4s	v25, v1, v30
+     aa0:      	fadd.4s	v26, v25, v3
+     aa4:      	fmla.4s	v30, v4, v26
+     aa8:      	fmla.4s	v30, v5, v26
+     aac:      	shl.4s	v29, v25, #0x17
+     ab0:      	add.4s	v25, v29, v19
+     ab4:      	facgt.4s	v27, v26, v6
+     ab8:      	fmul.4s	v31, v30, v30
+     abc:      	fmul.4s	v28, v30, v7
+     ac0:      	mov.16b	v8, v17
+     ac4:      	fmla.4s	v8, v16, v30
+     ac8:      	mov.16b	v9, v20
+     acc:      	fmla.4s	v9, v18, v30
+     ad0:      	fmla.4s	v8, v31, v9
+     ad4:      	fmla.4s	v28, v31, v8
+     ad8:      	addp.2d	d30, v27
+     adc:      	fmov	x12, d30
+     ae0:      	cbnz	x12, 0xa3c <_ggml_vec_swiglu_f32+0xd4>
+     ae4:      	fmla.4s	v25, v25, v28
+     ae8:      	b	0xa68 <_ggml_vec_swiglu_f32+0x100>
+     aec:      	mov	w12, #0x0               ; =0
+     af0:      	cmp	w12, w0
+     af4:      	b.ge	0xb4c <_ggml_vec_swiglu_f32+0x1e4>
+     af8:      	mov	w8, w12
+     afc:      	sub	x21, x19, x8
+     b00:      	cmp	x21, #0x4
+     b04:      	b.hs	0xb70 <_ggml_vec_swiglu_f32+0x208>
+     b08:      	mov	x20, x8
+     b0c:      	lsl	x8, x20, #2
+     b10:      	add	x21, x1, x8
+     b14:      	add	x22, x3, x8
+     b18:      	add	x23, x2, x8
+     b1c:      	sub	x19, x19, x20
+     b20:      	fmov	s8, #1.00000000
+     b24:      	ldr	s9, [x23], #0x4
+     b28:      	fneg	s0, s9
+     b2c:      	bl	0xb2c <_ggml_vec_swiglu_f32+0x1c4>
+     b30:      	fadd	s0, s0, s8
+     b34:      	fdiv	s0, s9, s0
+     b38:      	ldr	s1, [x22], #0x4
+     b3c:      	fmul	s0, s1, s0
+     b40:      	str	s0, [x21], #0x4
+     b44:      	subs	x19, x19, #0x1
+     b48:      	b.ne	0xb24 <_ggml_vec_swiglu_f32+0x1bc>
+     b4c:      	ldp	x29, x30, [sp, #0xb0]
+     b50:      	ldp	x20, x19, [sp, #0xa0]
+     b54:      	ldp	x22, x21, [sp, #0x90]
+     b58:      	ldp	x24, x23, [sp, #0x80]
+     b5c:      	ldp	x26, x25, [sp, #0x70]
+     b60:      	ldp	x28, x27, [sp, #0x60]
+     b64:      	ldp	d9, d8, [sp, #0x50]
+     b68:      	add	sp, sp, #0xc0
+     b6c:      	ret
+     b70:      	sub	x9, x1, x2
+     b74:      	cmp	x9, #0x10
+     b78:      	b.lo	0xb08 <_ggml_vec_swiglu_f32+0x1a0>
+     b7c:      	sub	x9, x1, x3
+     b80:      	cmp	x9, #0x10
+     b84:      	b.lo	0xb08 <_ggml_vec_swiglu_f32+0x1a0>
+     b88:      	and	x23, x21, #0xfffffffffffffffc
+     b8c:      	add	x20, x23, x8
+     b90:      	lsl	x8, x8, #2
+     b94:      	str	x1, [sp, #0x8]
+     b98:      	add	x26, x1, x8
+     b9c:      	mov	x24, x3
+     ba0:      	add	x27, x3, x8
+     ba4:      	mov	x25, x2
+     ba8:      	add	x28, x2, x8
+     bac:      	fmov.4s	v0, #1.00000000
+     bb0:      	str	q0, [sp, #0x10]
+     bb4:      	mov	x22, x23
+     bb8:      	ldr	q0, [x28], #0x10
+     bbc:      	str	q0, [sp, #0x20]
+     bc0:      	fneg.4s	v0, v0
+     bc4:      	str	q0, [sp, #0x40]
+     bc8:      	mov	s0, v0[1]
+     bcc:      	bl	0xbcc <_ggml_vec_swiglu_f32+0x264>
+     bd0:      	str	q0, [sp, #0x30]
+     bd4:      	ldr	q0, [sp, #0x40]
+     bd8:      	bl	0xbd8 <_ggml_vec_swiglu_f32+0x270>
+     bdc:      	ldr	q1, [sp, #0x30]
+     be0:      	mov.s	v0[1], v1[0]
+     be4:      	str	q0, [sp, #0x30]
+     be8:      	ldr	q0, [sp, #0x40]
+     bec:      	mov	s0, v0[2]
+     bf0:      	bl	0xbf0 <_ggml_vec_swiglu_f32+0x288>
+     bf4:      	ldr	q1, [sp, #0x30]
+     bf8:      	mov.s	v1[2], v0[0]
+     bfc:      	str	q1, [sp, #0x30]
+     c00:      	ldr	q0, [sp, #0x40]
+     c04:      	mov	s0, v0[3]
+     c08:      	bl	0xc08 <_ggml_vec_swiglu_f32+0x2a0>
+     c0c:      	ldr	q1, [sp, #0x30]
+     c10:      	mov.s	v1[3], v0[0]
+     c14:      	ldr	q0, [sp, #0x10]
+     c18:      	fadd.4s	v0, v1, v0
+     c1c:      	ldr	q1, [sp, #0x20]
+     c20:      	fdiv.4s	v0, v1, v0
+     c24:      	ldr	q1, [x27], #0x10
+     c28:      	fmul.4s	v0, v1, v0
+     c2c:      	str	q0, [x26], #0x10
+     c30:      	subs	x22, x22, #0x4
+     c34:      	b.ne	0xbb8 <_ggml_vec_swiglu_f32+0x250>
+     c38:      	cmp	x21, x23
+     c3c:      	mov	x2, x25
+     c40:      	mov	x3, x24
+     c44:      	ldr	x1, [sp, #0x8]
+     c48:      	b.ne	0xb0c <_ggml_vec_swiglu_f32+0x1a4>
+     c4c:      	b	0xb4c <_ggml_vec_swiglu_f32+0x1e4>
+
+0000000000000c50 <_ggml_vec_cvar_f32>:
+     c50:      	mov	w8, w0
+     c54:      	cmp	w0, #0x4
+     c58:      	b.lt	0xcac <_ggml_vec_cvar_f32+0x5c>
+     c5c:      	mov	x9, #0x0                ; =0
+     c60:      	dup.4s	v2, v0[0]
+     c64:      	movi.2d	v1, #0000000000000000
+     c68:      	mov	x10, x2
+     c6c:      	mov	x11, x1
+     c70:      	ldr	q3, [x10], #0x10
+     c74:      	fsub.4s	v3, v3, v2
+     c78:      	str	q3, [x11], #0x10
+     c7c:      	fmul.4s	v3, v3, v3
+     c80:      	faddp.4s	v3, v3, v3
+     c84:      	faddp.2s	s3, v3
+     c88:      	fcvt	d3, s3
+     c8c:      	fadd	d1, d1, d3
+     c90:      	add	x12, x9, #0x7
+     c94:      	add	x9, x9, #0x4
+     c98:      	cmp	x12, x8
+     c9c:      	b.lo	0xc70 <_ggml_vec_cvar_f32+0x20>
+     ca0:      	cmp	w9, w0
+     ca4:      	b.lt	0xcbc <_ggml_vec_cvar_f32+0x6c>
+     ca8:      	b	0xe6c <_ggml_vec_cvar_f32+0x21c>
+     cac:      	mov	w9, #0x0                ; =0
+     cb0:      	movi.2d	v1, #0000000000000000
+     cb4:      	cmp	w9, w0
+     cb8:      	b.ge	0xe6c <_ggml_vec_cvar_f32+0x21c>
+     cbc:      	mov	w10, w9
+     cc0:      	sub	x9, x8, x10
+     cc4:      	cmp	x9, #0x4
+     cc8:      	b.lo	0xce8 <_ggml_vec_cvar_f32+0x98>
+     ccc:      	sub	x11, x1, x2
+     cd0:      	cmp	x11, #0x3f
+     cd4:      	b.ls	0xce8 <_ggml_vec_cvar_f32+0x98>
+     cd8:      	cmp	x9, #0x10
+     cdc:      	b.hs	0xcf0 <_ggml_vec_cvar_f32+0xa0>
+     ce0:      	mov	x11, #0x0               ; =0
+     ce4:      	b	0xdd4 <_ggml_vec_cvar_f32+0x184>
+     ce8:      	mov	x12, x10
+     cec:      	b	0xe3c <_ggml_vec_cvar_f32+0x1ec>
+     cf0:      	dup.4s	v2, v0[0]
+     cf4:      	and	x11, x9, #0xfffffffffffffff0
+     cf8:      	lsl	x12, x10, #2
+     cfc:      	add	x13, x12, #0x20
+     d00:      	add	x12, x2, x13
+     d04:      	add	x13, x1, x13
+     d08:      	mov	x14, x11
+     d0c:      	ldp	q3, q4, [x12, #-0x20]
+     d10:      	ldp	q5, q6, [x12], #0x40
+     d14:      	fsub.4s	v3, v3, v2
+     d18:      	fsub.4s	v4, v4, v2
+     d1c:      	fsub.4s	v5, v5, v2
+     d20:      	fsub.4s	v6, v6, v2
+     d24:      	stp	q3, q4, [x13, #-0x20]
+     d28:      	stp	q5, q6, [x13], #0x40
+     d2c:      	fmul.4s	v3, v3, v3
+     d30:      	fmul.4s	v4, v4, v4
+     d34:      	fmul.4s	v5, v5, v5
+     d38:      	fmul.4s	v6, v6, v6
+     d3c:      	fcvtl2	v7.2d, v3.4s
+     d40:      	mov	d16, v7[1]
+     d44:      	fcvtl	v3.2d, v3.2s
+     d48:      	mov	d17, v3[1]
+     d4c:      	fcvtl2	v18.2d, v4.4s
+     d50:      	mov	d19, v18[1]
+     d54:      	fcvtl	v4.2d, v4.2s
+     d58:      	mov	d20, v4[1]
+     d5c:      	fcvtl2	v21.2d, v5.4s
+     d60:      	mov	d22, v21[1]
+     d64:      	fcvtl	v5.2d, v5.2s
+     d68:      	mov	d23, v5[1]
+     d6c:      	fcvtl2	v24.2d, v6.4s
+     d70:      	mov	d25, v24[1]
+     d74:      	fcvtl	v6.2d, v6.2s
+     d78:      	mov	d26, v6[1]
+     d7c:      	fadd	d1, d1, d3
+     d80:      	fadd	d1, d1, d17
+     d84:      	fadd	d1, d1, d7
+     d88:      	fadd	d1, d1, d16
+     d8c:      	fadd	d1, d1, d4
+     d90:      	fadd	d1, d1, d20
+     d94:      	fadd	d1, d1, d18
+     d98:      	fadd	d1, d1, d19
+     d9c:      	fadd	d1, d1, d5
+     da0:      	fadd	d1, d1, d23
+     da4:      	fadd	d1, d1, d21
+     da8:      	fadd	d1, d1, d22
+     dac:      	fadd	d1, d1, d6
+     db0:      	fadd	d1, d1, d26
+     db4:      	fadd	d1, d1, d24
+     db8:      	fadd	d1, d1, d25
+     dbc:      	subs	x14, x14, #0x10
+     dc0:      	b.ne	0xd0c <_ggml_vec_cvar_f32+0xbc>
+     dc4:      	cmp	x9, x11
+     dc8:      	b.eq	0xe6c <_ggml_vec_cvar_f32+0x21c>
+     dcc:      	tst	x9, #0xc
+     dd0:      	b.eq	0xe38 <_ggml_vec_cvar_f32+0x1e8>
+     dd4:      	and	x13, x9, #0xfffffffffffffffc
+     dd8:      	dup.4s	v2, v0[0]
+     ddc:      	add	x12, x13, x10
+     de0:      	sub	x14, x11, x13
+     de4:      	add	x10, x11, x10
+     de8:      	lsl	x11, x10, #2
+     dec:      	add	x10, x1, x11
+     df0:      	add	x11, x2, x11
+     df4:      	ldr	q3, [x11], #0x10
+     df8:      	fsub.4s	v3, v3, v2
+     dfc:      	str	q3, [x10], #0x10
+     e00:      	fmul.4s	v3, v3, v3
+     e04:      	fcvtl2	v4.2d, v3.4s
+     e08:      	mov	d5, v4[1]
+     e0c:      	fcvtl	v3.2d, v3.2s
+     e10:      	mov	d6, v3[1]
+     e14:      	fadd	d1, d1, d3
+     e18:      	fadd	d1, d1, d6
+     e1c:      	fadd	d1, d1, d4
+     e20:      	fadd	d1, d1, d5
+     e24:      	adds	x14, x14, #0x4
+     e28:      	b.ne	0xdf4 <_ggml_vec_cvar_f32+0x1a4>
+     e2c:      	cmp	x9, x13
+     e30:      	b.ne	0xe3c <_ggml_vec_cvar_f32+0x1ec>
+     e34:      	b	0xe6c <_ggml_vec_cvar_f32+0x21c>
+     e38:      	add	x12, x11, x10
+     e3c:      	lsl	x10, x12, #2
+     e40:      	add	x9, x1, x10
+     e44:      	add	x10, x2, x10
+     e48:      	sub	x8, x8, x12
+     e4c:      	ldr	s2, [x10], #0x4
+     e50:      	fsub	s2, s2, s0
+     e54:      	str	s2, [x9], #0x4
+     e58:      	fmul	s2, s2, s2
+     e5c:      	fcvt	d2, s2
+     e60:      	fadd	d1, d1, d2
+     e64:      	subs	x8, x8, #0x1
+     e68:      	b.ne	0xe4c <_ggml_vec_cvar_f32+0x1fc>
+     e6c:      	scvtf	d0, w0
+     e70:      	fdiv	d0, d1, d0
+     e74:      	ret
+
+0000000000000e78 <_ggml_vec_soft_max_f32>:
+     e78:      	sub	sp, sp, #0x1e0
+     e7c:      	stp	d11, d10, [sp, #0x160]
+     e80:      	stp	d9, d8, [sp, #0x170]
+     e84:      	stp	x28, x27, [sp, #0x180]
+     e88:      	stp	x26, x25, [sp, #0x190]
+     e8c:      	stp	x24, x23, [sp, #0x1a0]
+     e90:      	stp	x22, x21, [sp, #0x1b0]
+     e94:      	stp	x20, x19, [sp, #0x1c0]
+     e98:      	stp	x29, x30, [sp, #0x1d0]
+     e9c:      	add	x29, sp, #0x1d0
+     ea0:      	mov.16b	v10, v0
+     ea4:      	mov	w19, w0
+     ea8:      	cmp	w0, #0x4
+     eac:      	b.lt	0x1004 <_ggml_vec_soft_max_f32+0x18c>
+     eb0:      	mov	x8, #0x0                ; =0
+     eb4:      	dup.4s	v0, v10[0]
+     eb8:      	mov	w9, #0xaa3b             ; =43579
+     ebc:      	movk	w9, #0x3fb8, lsl #16
+     ec0:      	dup.4s	v1, w9
+     ec4:      	mov	w9, #0x4b400000         ; =1262485504
+     ec8:      	dup.4s	v2, w9
+     ecc:      	mov	w9, #-0x34c00000        ; =-884998144
+     ed0:      	dup.4s	v3, w9
+     ed4:      	mov	w9, #0x7200             ; =29184
+     ed8:      	movk	w9, #0xbf31, lsl #16
+     edc:      	dup.4s	v4, w9
+     ee0:      	movi.2d	v8, #0000000000000000
+     ee4:      	mov	w9, #0xbe8e             ; =48782
+     ee8:      	movk	w9, #0xb5bf, lsl #16
+     eec:      	dup.4s	v5, w9
+     ef0:      	fmov.4s	v6, #1.00000000
+     ef4:      	mov	w9, #0x42fc0000         ; =1123811328
+     ef8:      	dup.4s	v7, w9
+     efc:      	mov	w9, #0xfff6             ; =65526
+     f00:      	movk	w9, #0x3f7f, lsl #16
+     f04:      	dup.4s	v16, w9
+     f08:      	mov	w9, #0xaf33             ; =44851
+     f0c:      	movk	w9, #0x3e2a, lsl #16
+     f10:      	dup.4s	v17, w9
+     f14:      	mov	w9, #0xfedb             ; =65243
+     f18:      	movk	w9, #0x3eff, lsl #16
+     f1c:      	dup.4s	v18, w9
+     f20:      	mov	w9, #0x2010             ; =8208
+     f24:      	movk	w9, #0x3c07, lsl #16
+     f28:      	dup.4s	v19, w9
+     f2c:      	mov	w9, #0x9f17             ; =40727
+     f30:      	movk	w9, #0x3d2b, lsl #16
+     f34:      	dup.4s	v20, w9
+     f38:      	movi.4s	v21, #0x82, lsl #24
+     f3c:      	movi.4s	v22, #0x7f, lsl #24
+     f40:      	mov	w9, #0x43400000         ; =1128267776
+     f44:      	dup.4s	v23, w9
+     f48:      	mov	x9, x2
+     f4c:      	mov	x10, x1
+     f50:      	b	0xfa8 <_ggml_vec_soft_max_f32+0x130>
+     f54:      	fcmle.4s	v29, v25, #0.0
+     f58:      	and.16b	v29, v29, v21
+     f5c:      	add.4s	v30, v29, v22
+     f60:      	sub.4s	v28, v28, v29
+     f64:      	facgt.4s	v25, v25, v23
+     f68:      	fmul.4s	v29, v30, v30
+     f6c:      	fmla.4s	v28, v27, v28
+     f70:      	fmul.4s	v28, v28, v30
+     f74:      	fmla.4s	v24, v27, v24
+     f78:      	bit.16b	v24, v28, v26
+     f7c:      	bit.16b	v24, v29, v25
+     f80:      	str	q24, [x10], #0x10
+     f84:      	faddp.4s	v24, v24, v24
+     f88:      	faddp.2s	s24, v24
+     f8c:      	fcvt	d24, s24
+     f90:      	fadd	d8, d8, d24
+     f94:      	add	x11, x8, #0x4
+     f98:      	add	x12, x8, #0x7
+     f9c:      	mov	x8, x11
+     fa0:      	cmp	x12, x19
+     fa4:      	b.hs	0x100c <_ggml_vec_soft_max_f32+0x194>
+     fa8:      	ldr	q24, [x9], #0x10
+     fac:      	fsub.4s	v29, v24, v0
+     fb0:      	mov.16b	v24, v2
+     fb4:      	fmla.4s	v24, v1, v29
+     fb8:      	fadd.4s	v25, v24, v3
+     fbc:      	fmla.4s	v29, v4, v25
+     fc0:      	fmla.4s	v29, v5, v25
+     fc4:      	shl.4s	v28, v24, #0x17
+     fc8:      	add.4s	v24, v28, v6
+     fcc:      	facgt.4s	v26, v25, v7
+     fd0:      	fmul.4s	v30, v29, v29
+     fd4:      	fmul.4s	v27, v29, v16
+     fd8:      	mov.16b	v31, v18
+     fdc:      	fmla.4s	v31, v17, v29
+     fe0:      	mov.16b	v9, v20
+     fe4:      	fmla.4s	v9, v19, v29
+     fe8:      	fmla.4s	v31, v30, v9
+     fec:      	fmla.4s	v27, v30, v31
+     ff0:      	addp.2d	d29, v26
+     ff4:      	fmov	x11, d29
+     ff8:      	cbnz	x11, 0xf54 <_ggml_vec_soft_max_f32+0xdc>
+     ffc:      	fmla.4s	v24, v24, v27
+    1000:      	b	0xf80 <_ggml_vec_soft_max_f32+0x108>
+    1004:      	mov	w11, #0x0               ; =0
+    1008:      	movi.2d	v8, #0000000000000000
+    100c:      	cmp	w11, w0
+    1010:      	b.ge	0x1460 <_ggml_vec_soft_max_f32+0x5e8>
+    1014:      	mov	w21, w11
+    1018:      	sub	x20, x19, x21
+    101c:      	cmp	x20, #0x4
+    1020:      	stur	q10, [x29, #-0xd0]
+    1024:      	b.lo	0x1044 <_ggml_vec_soft_max_f32+0x1cc>
+    1028:      	sub	x8, x1, x2
+    102c:      	cmp	x8, #0x3f
+    1030:      	b.ls	0x1044 <_ggml_vec_soft_max_f32+0x1cc>
+    1034:      	cmp	x20, #0x10
+    1038:      	b.hs	0x104c <_ggml_vec_soft_max_f32+0x1d4>
+    103c:      	mov	x22, #0x0               ; =0
+    1040:      	b	0x1334 <_ggml_vec_soft_max_f32+0x4bc>
+    1044:      	mov	x25, x21
+    1048:      	b	0x142c <_ggml_vec_soft_max_f32+0x5b4>
+    104c:      	dup.4s	v0, v10[0]
+    1050:      	str	q0, [sp]
+    1054:      	and	x22, x20, #0xfffffffffffffff0
+    1058:      	lsl	x8, x21, #2
+    105c:      	add	x8, x8, #0x20
+    1060:      	mov	x23, x2
+    1064:      	add	x25, x2, x8
+    1068:      	mov	x24, x1
+    106c:      	add	x26, x1, x8
+    1070:      	mov	x27, x22
+    1074:      	ldp	q0, q1, [x25, #-0x20]
+    1078:      	ldp	q2, q3, [x25]
+    107c:      	ldr	q4, [sp]
+    1080:      	fsub.4s	v5, v0, v4
+    1084:      	fsub.4s	v0, v1, v4
+    1088:      	stp	q0, q5, [x29, #-0xa0]
+    108c:      	fsub.4s	v1, v2, v4
+    1090:      	fsub.4s	v0, v3, v4
+    1094:      	stp	q1, q0, [x29, #-0xc0]
+    1098:      	mov	s0, v5[1]
+    109c:      	bl	0x109c <_ggml_vec_soft_max_f32+0x224>
+    10a0:      	stur	q0, [x29, #-0xe0]
+    10a4:      	ldur	q0, [x29, #-0x90]
+    10a8:      	bl	0x10a8 <_ggml_vec_soft_max_f32+0x230>
+    10ac:      	str	q0, [sp, #0xb0]
+    10b0:      	mov.16b	v2, v0
+    10b4:      	ldur	q1, [x29, #-0xe0]
+    10b8:      	mov.s	v2[1], v1[0]
+    10bc:      	stur	q2, [x29, #-0x80]
+    10c0:      	ldur	q0, [x29, #-0x90]
+    10c4:      	mov	s0, v0[2]
+    10c8:      	bl	0x10c8 <_ggml_vec_soft_max_f32+0x250>
+    10cc:      	mov.16b	v1, v0
+    10d0:      	str	q1, [sp, #0x90]
+    10d4:      	ldur	q0, [x29, #-0x80]
+    10d8:      	mov.s	v0[2], v1[0]
+    10dc:      	stur	q0, [x29, #-0x80]
+    10e0:      	ldur	q0, [x29, #-0x90]
+    10e4:      	mov	s0, v0[3]
+    10e8:      	bl	0x10e8 <_ggml_vec_soft_max_f32+0x270>
+    10ec:      	mov.16b	v1, v0
+    10f0:      	str	q1, [sp, #0x80]
+    10f4:      	ldur	q0, [x29, #-0x80]
+    10f8:      	mov.s	v0[3], v1[0]
+    10fc:      	stur	q0, [x29, #-0x80]
+    1100:      	ldur	q0, [x29, #-0xa0]
+    1104:      	mov	s0, v0[1]
+    1108:      	bl	0x1108 <_ggml_vec_soft_max_f32+0x290>
+    110c:      	str	q0, [sp, #0xe0]
+    1110:      	ldur	q0, [x29, #-0xa0]
+    1114:      	bl	0x1114 <_ggml_vec_soft_max_f32+0x29c>
+    1118:      	str	q0, [sp, #0xa0]
+    111c:      	mov.16b	v2, v0
+    1120:      	ldr	q1, [sp, #0xe0]
+    1124:      	mov.s	v2[1], v1[0]
+    1128:      	stur	q2, [x29, #-0x90]
+    112c:      	ldur	q0, [x29, #-0xa0]
+    1130:      	mov	s0, v0[2]
+    1134:      	bl	0x1134 <_ggml_vec_soft_max_f32+0x2bc>
+    1138:      	mov.16b	v1, v0
+    113c:      	str	q1, [sp, #0x60]
+    1140:      	ldur	q0, [x29, #-0x90]
+    1144:      	mov.s	v0[2], v1[0]
+    1148:      	stur	q0, [x29, #-0x90]
+    114c:      	ldur	q0, [x29, #-0xa0]
+    1150:      	mov	s0, v0[3]
+    1154:      	bl	0x1154 <_ggml_vec_soft_max_f32+0x2dc>
+    1158:      	mov.16b	v1, v0
+    115c:      	str	q1, [sp, #0x50]
+    1160:      	ldur	q0, [x29, #-0x90]
+    1164:      	mov.s	v0[3], v1[0]
+    1168:      	stur	q0, [x29, #-0x90]
+    116c:      	ldur	q0, [x29, #-0xc0]
+    1170:      	mov	s0, v0[1]
+    1174:      	bl	0x1174 <_ggml_vec_soft_max_f32+0x2fc>
+    1178:      	str	q0, [sp, #0xd0]
+    117c:      	ldur	q0, [x29, #-0xc0]
+    1180:      	bl	0x1180 <_ggml_vec_soft_max_f32+0x308>
+    1184:      	str	q0, [sp, #0x70]
+    1188:      	mov.16b	v2, v0
+    118c:      	ldr	q1, [sp, #0xd0]
+    1190:      	mov.s	v2[1], v1[0]
+    1194:      	stur	q2, [x29, #-0xa0]
+    1198:      	ldur	q0, [x29, #-0xc0]
+    119c:      	mov	s0, v0[2]
+    11a0:      	bl	0x11a0 <_ggml_vec_soft_max_f32+0x328>
+    11a4:      	mov.16b	v1, v0
+    11a8:      	str	q1, [sp, #0x30]
+    11ac:      	ldur	q0, [x29, #-0xa0]
+    11b0:      	mov.s	v0[2], v1[0]
+    11b4:      	stur	q0, [x29, #-0xa0]
+    11b8:      	ldur	q0, [x29, #-0xc0]
+    11bc:      	mov	s0, v0[3]
+    11c0:      	bl	0x11c0 <_ggml_vec_soft_max_f32+0x348>
+    11c4:      	mov.16b	v1, v0
+    11c8:      	str	q1, [sp, #0x20]
+    11cc:      	ldur	q0, [x29, #-0xa0]
+    11d0:      	mov.s	v0[3], v1[0]
+    11d4:      	stur	q0, [x29, #-0xa0]
+    11d8:      	ldur	q0, [x29, #-0xb0]
+    11dc:      	mov	s0, v0[1]
+    11e0:      	bl	0x11e0 <_ggml_vec_soft_max_f32+0x368>
+    11e4:      	str	q0, [sp, #0xc0]
+    11e8:      	ldur	q0, [x29, #-0xb0]
+    11ec:      	bl	0x11ec <_ggml_vec_soft_max_f32+0x374>
+    11f0:      	str	q0, [sp, #0x40]
+    11f4:      	mov.16b	v1, v0
+    11f8:      	ldr	q0, [sp, #0xc0]
+    11fc:      	mov.s	v1[1], v0[0]
+    1200:      	stur	q1, [x29, #-0xc0]
+    1204:      	ldur	q0, [x29, #-0xb0]
+    1208:      	mov	s0, v0[2]
+    120c:      	bl	0x120c <_ggml_vec_soft_max_f32+0x394>
+    1210:      	str	q0, [sp, #0x10]
+    1214:      	ldur	q1, [x29, #-0xc0]
+    1218:      	mov.s	v1[2], v0[0]
+    121c:      	stur	q1, [x29, #-0xc0]
+    1220:      	ldur	q0, [x29, #-0xb0]
+    1224:      	mov	s0, v0[3]
+    1228:      	bl	0x1228 <_ggml_vec_soft_max_f32+0x3b0>
+    122c:      	ldur	q25, [x29, #-0xc0]
+    1230:      	mov.s	v25[3], v0[0]
+    1234:      	ldp	q2, q1, [sp, #0x80]
+    1238:      	mov.s	v1[1], v2[0]
+    123c:      	fcvtl	v1.2d, v1.2s
+    1240:      	mov	d2, v1[1]
+    1244:      	ldur	q3, [x29, #-0xe0]
+    1248:      	ldp	q7, q4, [sp, #0xa0]
+    124c:      	mov.s	v4[1], v3[0]
+    1250:      	fcvtl	v3.2d, v4.2s
+    1254:      	mov	d4, v3[1]
+    1258:      	ldp	q6, q5, [sp, #0x50]
+    125c:      	mov.s	v5[1], v6[0]
+    1260:      	fcvtl	v5.2d, v5.2s
+    1264:      	ldp	q19, q6, [sp, #0xd0]
+    1268:      	mov.s	v7[1], v6[0]
+    126c:      	mov	d6, v5[1]
+    1270:      	fcvtl	v7.2d, v7.2s
+    1274:      	mov	d16, v7[1]
+    1278:      	ldp	q18, q17, [sp, #0x20]
+    127c:      	mov.s	v17[1], v18[0]
+    1280:      	fcvtl	v17.2d, v17.2s
+    1284:      	mov	d18, v17[1]
+    1288:      	ldr	q20, [sp, #0x70]
+    128c:      	mov.s	v20[1], v19[0]
+    1290:      	fcvtl	v19.2d, v20.2s
+    1294:      	ldr	q20, [sp, #0x10]
+    1298:      	mov.s	v20[1], v0[0]
+    129c:      	mov	d0, v19[1]
+    12a0:      	fcvtl	v20.2d, v20.2s
+    12a4:      	mov	d21, v20[1]
+    12a8:      	ldr	q22, [sp, #0xc0]
+    12ac:      	ldr	q23, [sp, #0x40]
+    12b0:      	mov.s	v23[1], v22[0]
+    12b4:      	fcvtl	v22.2d, v23.2s
+    12b8:      	mov	d23, v22[1]
+    12bc:      	ldp	q24, q26, [x29, #-0x90]
+    12c0:      	stp	q26, q24, [x26, #-0x20]
+    12c4:      	ldur	q24, [x29, #-0xa0]
+    12c8:      	stp	q24, q25, [x26], #0x40
+    12cc:      	fadd	d3, d8, d3
+    12d0:      	fadd	d3, d3, d4
+    12d4:      	fadd	d1, d3, d1
+    12d8:      	fadd	d1, d1, d2
+    12dc:      	fadd	d1, d1, d7
+    12e0:      	fadd	d1, d1, d16
+    12e4:      	fadd	d1, d1, d5
+    12e8:      	fadd	d1, d1, d6
+    12ec:      	fadd	d1, d1, d19
+    12f0:      	fadd	d0, d1, d0
+    12f4:      	fadd	d0, d0, d17
+    12f8:      	fadd	d0, d0, d18
+    12fc:      	fadd	d0, d0, d22
+    1300:      	fadd	d0, d0, d23
+    1304:      	fadd	d0, d0, d20
+    1308:      	fadd	d8, d0, d21
+    130c:      	add	x25, x25, #0x40
+    1310:      	subs	x27, x27, #0x10
+    1314:      	b.ne	0x1074 <_ggml_vec_soft_max_f32+0x1fc>
+    1318:      	cmp	x20, x22
+    131c:      	b.eq	0x1460 <_ggml_vec_soft_max_f32+0x5e8>
+    1320:      	tst	x20, #0xc
+    1324:      	b.eq	0x141c <_ggml_vec_soft_max_f32+0x5a4>
+    1328:      	mov	x2, x23
+    132c:      	mov	x1, x24
+    1330:      	ldur	q10, [x29, #-0xd0]
+    1334:      	and	x23, x20, #0xfffffffffffffffc
+    1338:      	dup.4s	v0, v10[0]
+    133c:      	stur	q0, [x29, #-0xe0]
+    1340:      	add	x25, x23, x21
+    1344:      	sub	x24, x22, x23
+    1348:      	add	x8, x22, x21
+    134c:      	lsl	x8, x8, #2
+    1350:      	mov	x21, x1
+    1354:      	add	x26, x1, x8
+    1358:      	mov	x22, x2
+    135c:      	add	x27, x2, x8
+    1360:      	ldr	q0, [x27], #0x10
+    1364:      	ldur	q1, [x29, #-0xe0]
+    1368:      	fsub.4s	v0, v0, v1
+    136c:      	stur	q0, [x29, #-0x80]
+    1370:      	mov	s0, v0[1]
+    1374:      	bl	0x1374 <_ggml_vec_soft_max_f32+0x4fc>
+    1378:      	stur	q0, [x29, #-0xa0]
+    137c:      	ldur	q0, [x29, #-0x80]
+    1380:      	bl	0x1380 <_ggml_vec_soft_max_f32+0x508>
+    1384:      	stur	q0, [x29, #-0xb0]
+    1388:      	mov.16b	v1, v0
+    138c:      	ldur	q0, [x29, #-0xa0]
+    1390:      	mov.s	v1[1], v0[0]
+    1394:      	stur	q1, [x29, #-0x90]
+    1398:      	ldur	q0, [x29, #-0x80]
+    139c:      	mov	s0, v0[2]
+    13a0:      	bl	0x13a0 <_ggml_vec_soft_max_f32+0x528>
+    13a4:      	mov.16b	v1, v0
+    13a8:      	stur	q1, [x29, #-0xc0]
+    13ac:      	ldur	q0, [x29, #-0x90]
+    13b0:      	mov.s	v0[2], v1[0]
+    13b4:      	stur	q0, [x29, #-0x90]
+    13b8:      	ldur	q0, [x29, #-0x80]
+    13bc:      	mov	s0, v0[3]
+    13c0:      	bl	0x13c0 <_ggml_vec_soft_max_f32+0x548>
+    13c4:      	ldp	q2, q3, [x29, #-0xa0]
+    13c8:      	mov.s	v3[3], v0[0]
+    13cc:      	ldp	q1, q4, [x29, #-0xc0]
+    13d0:      	mov.s	v1[1], v0[0]
+    13d4:      	fcvtl	v0.2d, v1.2s
+    13d8:      	mov	d1, v0[1]
+    13dc:      	mov.s	v4[1], v2[0]
+    13e0:      	fcvtl	v2.2d, v4.2s
+    13e4:      	str	q3, [x26], #0x10
+    13e8:      	mov	d3, v2[1]
+    13ec:      	fadd	d2, d8, d2
+    13f0:      	fadd	d2, d2, d3
+    13f4:      	fadd	d0, d2, d0
+    13f8:      	fadd	d8, d0, d1
+    13fc:      	adds	x24, x24, #0x4
+    1400:      	b.ne	0x1360 <_ggml_vec_soft_max_f32+0x4e8>
+    1404:      	cmp	x20, x23
+    1408:      	mov	x2, x22
+    140c:      	mov	x1, x21
+    1410:      	ldur	q10, [x29, #-0xd0]
+    1414:      	b.ne	0x142c <_ggml_vec_soft_max_f32+0x5b4>
+    1418:      	b	0x1460 <_ggml_vec_soft_max_f32+0x5e8>
+    141c:      	add	x25, x22, x21
+    1420:      	mov	x2, x23
+    1424:      	mov	x1, x24
+    1428:      	ldur	q10, [x29, #-0xd0]
+    142c:      	lsl	x8, x25, #2
+    1430:      	add	x20, x1, x8
+    1434:      	add	x21, x2, x8
+    1438:      	sub	x19, x19, x25
+    143c:      	ldr	s0, [x21], #0x4
+    1440:      	fsub	s0, s0, s10
+    1444:      	bl	0x1444 <_ggml_vec_soft_max_f32+0x5cc>
+    1448:      	ldur	q10, [x29, #-0xd0]
+    144c:      	fcvt	d1, s0
+    1450:      	fadd	d8, d8, d1
+    1454:      	str	s0, [x20], #0x4
+    1458:      	subs	x19, x19, #0x1
+    145c:      	b.ne	0x143c <_ggml_vec_soft_max_f32+0x5c4>
+    1460:      	mov.16b	v0, v8
+    1464:      	ldp	x29, x30, [sp, #0x1d0]
+    1468:      	ldp	x20, x19, [sp, #0x1c0]
+    146c:      	ldp	x22, x21, [sp, #0x1b0]
+    1470:      	ldp	x24, x23, [sp, #0x1a0]
+    1474:      	ldp	x26, x25, [sp, #0x190]
+    1478:      	ldp	x28, x27, [sp, #0x180]
+    147c:      	ldp	d9, d8, [sp, #0x170]
+    1480:      	ldp	d11, d10, [sp, #0x160]
+    1484:      	add	sp, sp, #0x1e0
+    1488:      	ret
+
+000000000000148c <_ggml_vec_log_soft_max_f32>:
+    148c:      	sub	sp, sp, #0x180
+    1490:      	stp	d9, d8, [sp, #0x120]
+    1494:      	stp	x26, x25, [sp, #0x130]
+    1498:      	stp	x24, x23, [sp, #0x140]
+    149c:      	stp	x22, x21, [sp, #0x150]
+    14a0:      	stp	x20, x19, [sp, #0x160]
+    14a4:      	stp	x29, x30, [sp, #0x170]
+    14a8:      	add	x29, sp, #0x170
+    14ac:      	cmp	w0, #0x1
+    14b0:      	b.lt	0x14ec <_ggml_vec_log_soft_max_f32+0x60>
+    14b4:      	mov.16b	v1, v0
+    14b8:      	mov	x20, #0x0               ; =0
+    14bc:      	mov	w19, w0
+    14c0:      	movi.2d	v8, #0000000000000000
+    14c4:      	cmp	w0, #0x4
+    14c8:      	stur	q1, [x29, #-0xa0]
+    14cc:      	b.lo	0x17dc <_ggml_vec_log_soft_max_f32+0x350>
+    14d0:      	sub	x8, x1, x2
+    14d4:      	cmp	x8, #0x40
+    14d8:      	b.lo	0x17dc <_ggml_vec_log_soft_max_f32+0x350>
+    14dc:      	cmp	w0, #0x10
+    14e0:      	b.hs	0x14f4 <_ggml_vec_log_soft_max_f32+0x68>
+    14e4:      	mov	x20, #0x0               ; =0
+    14e8:      	b	0x1720 <_ggml_vec_log_soft_max_f32+0x294>
+    14ec:      	movi.2d	v0, #0000000000000000
+    14f0:      	b	0x1814 <_ggml_vec_log_soft_max_f32+0x388>
+    14f4:      	and	x20, x19, #0x7ffffff0
+    14f8:      	dup.4s	v0, v1[0]
+    14fc:      	str	q0, [sp]
+    1500:      	mov	x21, x2
+    1504:      	add	x23, x2, #0x20
+    1508:      	mov	x22, x1
+    150c:      	add	x24, x1, #0x20
+    1510:      	mov	x25, x20
+    1514:      	ldp	q0, q1, [x23, #-0x20]
+    1518:      	ldp	q2, q3, [x23]
+    151c:      	ldr	q4, [sp]
+    1520:      	fsub.4s	v0, v0, v4
+    1524:      	fsub.4s	v5, v1, v4
+    1528:      	fsub.4s	v1, v2, v4
+    152c:      	stp	q5, q1, [x29, #-0x80]
+    1530:      	fsub.4s	v2, v3, v4
+    1534:      	stur	q2, [x29, #-0x60]
+    1538:      	stur	q0, [x29, #-0x90]
+    153c:      	stp	q0, q5, [x24, #-0x20]
+    1540:      	stp	q1, q2, [x24]
+    1544:      	bl	0x1544 <_ggml_vec_log_soft_max_f32+0xb8>
+    1548:      	stur	q0, [x29, #-0xb0]
+    154c:      	ldur	q0, [x29, #-0x90]
+    1550:      	mov	s0, v0[1]
+    1554:      	bl	0x1554 <_ggml_vec_log_soft_max_f32+0xc8>
+    1558:      	str	q0, [sp, #0xb0]
+    155c:      	ldur	q0, [x29, #-0x90]
+    1560:      	mov	s0, v0[2]
+    1564:      	bl	0x1564 <_ggml_vec_log_soft_max_f32+0xd8>
+    1568:      	str	q0, [sp, #0x80]
+    156c:      	ldur	q0, [x29, #-0x90]
+    1570:      	mov	s0, v0[3]
+    1574:      	bl	0x1574 <_ggml_vec_log_soft_max_f32+0xe8>
+    1578:      	str	q0, [sp, #0x60]
+    157c:      	ldur	q0, [x29, #-0x80]
+    1580:      	bl	0x1580 <_ggml_vec_log_soft_max_f32+0xf4>
+    1584:      	stur	q0, [x29, #-0x90]
+    1588:      	ldur	q0, [x29, #-0x80]
+    158c:      	mov	s0, v0[1]
+    1590:      	bl	0x1590 <_ggml_vec_log_soft_max_f32+0x104>
+    1594:      	str	q0, [sp, #0xa0]
+    1598:      	ldur	q0, [x29, #-0x80]
+    159c:      	mov	s0, v0[2]
+    15a0:      	bl	0x15a0 <_ggml_vec_log_soft_max_f32+0x114>
+    15a4:      	str	q0, [sp, #0x50]
+    15a8:      	ldur	q0, [x29, #-0x80]
+    15ac:      	mov	s0, v0[3]
+    15b0:      	bl	0x15b0 <_ggml_vec_log_soft_max_f32+0x124>
+    15b4:      	str	q0, [sp, #0x30]
+    15b8:      	ldur	q0, [x29, #-0x70]
+    15bc:      	bl	0x15bc <_ggml_vec_log_soft_max_f32+0x130>
+    15c0:      	stur	q0, [x29, #-0x80]
+    15c4:      	ldur	q0, [x29, #-0x70]
+    15c8:      	mov	s0, v0[1]
+    15cc:      	bl	0x15cc <_ggml_vec_log_soft_max_f32+0x140>
+    15d0:      	str	q0, [sp, #0x90]
+    15d4:      	ldur	q0, [x29, #-0x70]
+    15d8:      	mov	s0, v0[2]
+    15dc:      	bl	0x15dc <_ggml_vec_log_soft_max_f32+0x150>
+    15e0:      	str	q0, [sp, #0x40]
+    15e4:      	ldur	q0, [x29, #-0x70]
+    15e8:      	mov	s0, v0[3]
+    15ec:      	bl	0x15ec <_ggml_vec_log_soft_max_f32+0x160>
+    15f0:      	str	q0, [sp, #0x10]
+    15f4:      	ldur	q0, [x29, #-0x60]
+    15f8:      	bl	0x15f8 <_ggml_vec_log_soft_max_f32+0x16c>
+    15fc:      	stur	q0, [x29, #-0x70]
+    1600:      	ldur	q0, [x29, #-0x60]
+    1604:      	mov	s0, v0[1]
+    1608:      	bl	0x1608 <_ggml_vec_log_soft_max_f32+0x17c>
+    160c:      	str	q0, [sp, #0x70]
+    1610:      	ldur	q0, [x29, #-0x60]
+    1614:      	mov	s0, v0[2]
+    1618:      	bl	0x1618 <_ggml_vec_log_soft_max_f32+0x18c>
+    161c:      	str	q0, [sp, #0x20]
+    1620:      	ldur	q0, [x29, #-0x60]
+    1624:      	mov	s0, v0[3]
+    1628:      	bl	0x1628 <_ggml_vec_log_soft_max_f32+0x19c>
+    162c:      	ldr	q1, [sp, #0x80]
+    1630:      	ldp	q5, q2, [sp, #0x50]
+    1634:      	mov.s	v1[1], v2[0]
+    1638:      	fcvtl	v1.2d, v1.2s
+    163c:      	mov	d2, v1[1]
+    1640:      	ldur	q3, [x29, #-0xb0]
+    1644:      	ldp	q16, q4, [sp, #0xa0]
+    1648:      	mov.s	v3[1], v4[0]
+    164c:      	fcvtl	v3.2d, v3.2s
+    1650:      	ldp	q4, q17, [sp, #0x30]
+    1654:      	mov.s	v5[1], v4[0]
+    1658:      	mov	d4, v3[1]
+    165c:      	fcvtl	v5.2d, v5.2s
+    1660:      	mov	d6, v5[1]
+    1664:      	ldp	q7, q19, [x29, #-0x90]
+    1668:      	mov.s	v7[1], v16[0]
+    166c:      	fcvtl	v7.2d, v7.2s
+    1670:      	mov	d16, v7[1]
+    1674:      	ldp	q18, q21, [sp, #0x10]
+    1678:      	mov.s	v17[1], v18[0]
+    167c:      	fcvtl	v17.2d, v17.2s
+    1680:      	ldr	q18, [sp, #0x90]
+    1684:      	mov.s	v19[1], v18[0]
+    1688:      	mov	d18, v17[1]
+    168c:      	fcvtl	v19.2d, v19.2s
+    1690:      	mov	d20, v19[1]
+    1694:      	mov.s	v21[1], v0[0]
+    1698:      	fcvtl	v0.2d, v21.2s
+    169c:      	mov	d21, v0[1]
+    16a0:      	ldur	q22, [x29, #-0x70]
+    16a4:      	ldr	q23, [sp, #0x70]
+    16a8:      	mov.s	v22[1], v23[0]
+    16ac:      	fcvtl	v22.2d, v22.2s
+    16b0:      	mov	d23, v22[1]
+    16b4:      	fadd	d3, d8, d3
+    16b8:      	fadd	d3, d3, d4
+    16bc:      	fadd	d1, d3, d1
+    16c0:      	fadd	d1, d1, d2
+    16c4:      	fadd	d1, d1, d7
+    16c8:      	fadd	d1, d1, d16
+    16cc:      	fadd	d1, d1, d5
+    16d0:      	fadd	d1, d1, d6
+    16d4:      	fadd	d1, d1, d19
+    16d8:      	fadd	d1, d1, d20
+    16dc:      	fadd	d1, d1, d17
+    16e0:      	fadd	d1, d1, d18
+    16e4:      	fadd	d1, d1, d22
+    16e8:      	fadd	d1, d1, d23
+    16ec:      	fadd	d0, d1, d0
+    16f0:      	fadd	d8, d0, d21
+    16f4:      	add	x23, x23, #0x40
+    16f8:      	add	x24, x24, #0x40
+    16fc:      	subs	x25, x25, #0x10
+    1700:      	b.ne	0x1514 <_ggml_vec_log_soft_max_f32+0x88>
+    1704:      	cmp	x20, x19
+    1708:      	b.eq	0x1810 <_ggml_vec_log_soft_max_f32+0x384>
+    170c:      	tst	x19, #0xc
+    1710:      	mov	x2, x21
+    1714:      	mov	x1, x22
+    1718:      	ldur	q1, [x29, #-0xa0]
+    171c:      	b.eq	0x17dc <_ggml_vec_log_soft_max_f32+0x350>
+    1720:      	mov	x8, x20
+    1724:      	and	x20, x19, #0x7ffffffc
+    1728:      	dup.4s	v0, v1[0]
+    172c:      	stur	q0, [x29, #-0xb0]
+    1730:      	sub	x23, x8, x20
+    1734:      	lsl	x8, x8, #2
+    1738:      	mov	x21, x1
+    173c:      	add	x24, x1, x8
+    1740:      	mov	x22, x2
+    1744:      	add	x25, x2, x8
+    1748:      	ldr	q0, [x25], #0x10
+    174c:      	ldur	q1, [x29, #-0xb0]
+    1750:      	fsub.4s	v0, v0, v1
+    1754:      	stur	q0, [x29, #-0x60]
+    1758:      	str	q0, [x24], #0x10
+    175c:      	bl	0x175c <_ggml_vec_log_soft_max_f32+0x2d0>
+    1760:      	stur	q0, [x29, #-0x70]
+    1764:      	ldur	q0, [x29, #-0x60]
+    1768:      	mov	s0, v0[1]
+    176c:      	bl	0x176c <_ggml_vec_log_soft_max_f32+0x2e0>
+    1770:      	stur	q0, [x29, #-0x80]
+    1774:      	ldur	q0, [x29, #-0x60]
+    1778:      	mov	s0, v0[2]
+    177c:      	bl	0x177c <_ggml_vec_log_soft_max_f32+0x2f0>
+    1780:      	stur	q0, [x29, #-0x90]
+    1784:      	ldur	q0, [x29, #-0x60]
+    1788:      	mov	s0, v0[3]
+    178c:      	bl	0x178c <_ggml_vec_log_soft_max_f32+0x300>
+    1790:      	ldp	q1, q3, [x29, #-0x90]
+    1794:      	mov.s	v1[1], v0[0]
+    1798:      	fcvtl	v0.2d, v1.2s
+    179c:      	mov	d1, v0[1]
+    17a0:      	ldur	q2, [x29, #-0x70]
+    17a4:      	mov.s	v2[1], v3[0]
+    17a8:      	fcvtl	v2.2d, v2.2s
+    17ac:      	mov	d3, v2[1]
+    17b0:      	fadd	d2, d8, d2
+    17b4:      	fadd	d2, d2, d3
+    17b8:      	fadd	d0, d2, d0
+    17bc:      	fadd	d8, d0, d1
+    17c0:      	adds	x23, x23, #0x4
+    17c4:      	b.ne	0x1748 <_ggml_vec_log_soft_max_f32+0x2bc>
+    17c8:      	cmp	x20, x19
+    17cc:      	mov	x2, x22
+    17d0:      	mov	x1, x21
+    17d4:      	ldur	q1, [x29, #-0xa0]
+    17d8:      	b.eq	0x1810 <_ggml_vec_log_soft_max_f32+0x384>
+    17dc:      	lsl	x8, x20, #2
+    17e0:      	add	x21, x1, x8
+    17e4:      	add	x22, x2, x8
+    17e8:      	sub	x19, x19, x20
+    17ec:      	ldr	s0, [x22], #0x4
+    17f0:      	fsub	s0, s0, s1
+    17f4:      	str	s0, [x21], #0x4
+    17f8:      	bl	0x17f8 <_ggml_vec_log_soft_max_f32+0x36c>
+    17fc:      	ldur	q1, [x29, #-0xa0]
+    1800:      	fcvt	d0, s0
+    1804:      	fadd	d8, d8, d0
+    1808:      	subs	x19, x19, #0x1
+    180c:      	b.ne	0x17ec <_ggml_vec_log_soft_max_f32+0x360>
+    1810:      	fcvt	s0, d8
+    1814:      	bl	0x1814 <_ggml_vec_log_soft_max_f32+0x388>
+    1818:      	fcvt	d0, s0
+    181c:      	ldp	x29, x30, [sp, #0x170]
+    1820:      	ldp	x20, x19, [sp, #0x160]
+    1824:      	ldp	x22, x21, [sp, #0x150]
+    1828:      	ldp	x24, x23, [sp, #0x140]
+    182c:      	ldp	x26, x25, [sp, #0x130]
+    1830:      	ldp	d9, d8, [sp, #0x120]
+    1834:      	add	sp, sp, #0x180
+    1838:      	ret
