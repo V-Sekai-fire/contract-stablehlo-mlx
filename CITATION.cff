@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: If you use this code, cite it as below.
+title: contract-stablehlo-mlx
+abstract: >-
+  A Lean 4 executor for StableHLO on Apple's Metal GPU through MLX (mlx-c,
+  @[extern] and one C shim), bit for bit equal to ggml-cpu op by op. The
+  exact kernels (ggml_vec_dot_f32's NEON order for mul_mat, soft_max, norm,
+  silu, gelu_erf with a port of the platform erff, correctly rounded binary32
+  divide and sqrt, software binary64) are written in Lean and emitted through
+  LeanSlang to Slang, then Metal, pinned by native_decide. Pins:
+  lean-toolchain leanprover/lean4:v4.34.1; LeanSlang
+  V-Sekai-fire/contract-lean-slang 60532aef8ed70cc669ecab481182d0636c9e1ac3
+  (the contract-anny-kernels pin); mlx-c v0.7.0
+  a341b4925024b88b2c593468f16e12f5e17315da; MLX v0.32.2
+  1f8e74e3f12f31365464a6867c6579f0e9b29d85; ggml (reference only)
+  V-Sekai-fire/ggml 29cae86726d8ae2b4d699d8e432fd1bb1801e959. The erff
+  coefficient table (StablehloMlx/Kernels/Math.lean) is read from macOS
+  libsystem_m so the GPU port returns the CPU routine's bits; the routines
+  ported from ggml-cpu (vec.h, vec.cpp, ops.cpp) are MIT. No code is taken
+  from fire/stablehlo-metal: it was looked for as prior art, and only its
+  repo manifest (stablehlo-metal-manifest) was readable.
+type: software
+authors:
+  - name: K. S. Ernest (iFire) Lee
+  - name: V-Sekai
+repository-code: https://github.com/V-Sekai-fire/contract-stablehlo-mlx
+license: MIT
+references:
+  - type: software
+    title: MLX
+    authors:
+      - name: Apple machine learning research
+    repository-code: https://github.com/ml-explore/mlx
+    license: MIT
+  - type: software
+    title: mlx-c
+    authors:
+      - name: Apple machine learning research
+    repository-code: https://github.com/ml-explore/mlx-c
+    license: MIT
+  - type: software
+    title: ggml
+    authors:
+      - name: ggml authors
+    repository-code: https://github.com/ggml-org/ggml
+    license: MIT

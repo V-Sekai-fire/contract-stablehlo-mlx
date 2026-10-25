@@ -1,0 +1,39 @@
+name: gpu
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+
+jobs:
+  op-tests:
+    # Apple-silicon runner: the per-op tests run on its Metal GPU.
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tools
+        run: brew install ninja
+      - name: Lean
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Cache MLX
+        id: mlx
+        uses: actions/cache@v4
+        with:
+          path: .lake/mlx/prefix
+          key: mlx-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('scripts/build_mlx.sh') }}
+      - name: Build mlx-c and MLX
+        if: steps.mlx.outputs.cache-hit != 'true'
+        run: scripts/build_mlx.sh
+      - name: lake build
+        run: lake build
+      - name: ggml-cpu references
+        run: ref/build.sh ref-out
+      - name: Per-op tests on the GPU, with planted faults
+        run: .lake/build/bin/op_tests ref-out
+      - name: Kernel pins and their planted fault
+        run: scripts/pin_fault.sh
