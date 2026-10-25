@@ -64,6 +64,8 @@ structure Faults where
   concatSwap : Bool := false        -- concatenate with the operands in reverse order
   transposeIdentity : Bool := false -- transpose as a reshape (no permutation)
   sliceShift : Bool := false        -- slice starting one element late on the last axis
+  f64AsF32 : Bool := false          -- binary64 arithmetic carried out in binary32
+  whileShort : Bool := false        -- a while loop's last iteration dropped
   deriving Inhabited
 
 abbrev Env := Std.HashMap String Arr
@@ -335,6 +337,16 @@ mutual
     let n := o.name
     let el0 := (o.inTys[0]?.map (·.el)).getD ""
     -- binary64 arithmetic and comparisons: soft float on the bit patterns.
+    if el0 == "f64" && f.f64AsF32 then
+      let narrow (a : Arr) : IO Arr := convertOp a { out with el := "f64" } { out with el := "f32" }
+      let widen (a : Arr) : IO Arr := convertOp a { out with el := "f32" } { out with el := "f64" }
+      match binaryCode n with
+      | some c =>
+        if n == "stablehlo.add" || n == "stablehlo.subtract" || n == "stablehlo.multiply" then
+          return #[← widen (← binary c (← narrow args[0]!) (← narrow args[1]!))]
+      | none =>
+        if n == "stablehlo.divide" then
+          return #[← widen (← binary opDiv (← narrow args[0]!) (← narrow args[1]!))]
     if el0 == "f64" then
       match n with
       | "stablehlo.add" => return #[← f64Ew Run.f64Add args[0]! args[1]! out]
@@ -443,6 +455,7 @@ mutual
       let (some cond, some body) := (o.regions[0]?, o.regions[1]?) | err "while without its two regions"
       let mut st := args
       let mut stK : Array (Option Int) := o.operands.map known.get?
+      let mut prev := args
       repeat
         let (_, ck) ← runRegion m f env known cond st stK
         let c : Option Int := ck[0]?.join
@@ -450,10 +463,11 @@ mutual
         | some v =>
           if v == 0 then break
           let (br, bk) ← runRegion m f env known body st stK
+          prev := st
           st := br
           stK := bk
         | none => err "while: the condition depends on data, which is not carried (the loop is unrolled when traced)"
-      return st
+      return if f.whileShort then prev else st
     | "stablehlo.composite" => runComposite m f o args
     | "stablehlo.custom_call" => runComposite m f o args
     | _ => err s!"op {n} is not in the lowering table"
