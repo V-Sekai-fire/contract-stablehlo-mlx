@@ -86,6 +86,9 @@ def roF (n : String) (b : Nat) : SlangBinding := { name := n, type := .roBuf fT,
 def roU (n : String) (b : Nat) : SlangBinding := { name := n, type := .roBuf uT, binding := some b }
 def rwF (n : String) (b : Nat) : SlangBinding := { name := n, type := .rwBuf fT, binding := some b }
 def rwU (n : String) (b : Nat) : SlangBinding := { name := n, type := .rwBuf uT, binding := some b }
+/-- uint64 buffers: binary64 values travel as their bit patterns. -/
+def roL (n : String) (b : Nat) : SlangBinding := { name := n, type := .roBuf lT, binding := some b }
+def rwL (n : String) (b : Nat) : SlangBinding := { name := n, type := .rwBuf lT, binding := some b }
 
 /-- The compute entry point: one thread per `tid.x`, the global index. -/
 def entry (threads : Nat) (body : List S) : SlangFunctionDecl :=

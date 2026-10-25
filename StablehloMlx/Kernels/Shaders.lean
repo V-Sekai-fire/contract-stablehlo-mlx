@@ -220,9 +220,46 @@ def sqrt : SlangShaderModule :=
     functions := helpers ++ [entry 256
       (tidGuard (at_ "p" (u 0)) ++ [ setAt "y" (v "t") (call "f32_sqrt" [at_ "a" (v "t")]) ])] }
 
+/-! ## Elementwise binary64, for the generic StableHLO path
+
+`stablehlo.add` / `subtract` / `multiply` / `divide` / `floor` / `convert` on
+`f64` tensors. The GPU has no binary64, so the values are uint64 bit patterns.
+
+`f64_ew` bindings: 0 `a`, 1 `b`, 2 `p` = [count, op], 3 `y`; op 0 add, 1
+subtract, 2 multiply, 3 divide, 4 floor of `a`, 5 `a` to int64 (rounding toward
+zero). The unary ops ignore `b`. -/
+def f64Ew : SlangShaderModule :=
+  { globals := [roL "a" 0, roL "b" 1, roU "p" 2, rwL "y" 3]
+    functions := helpers ++ [entry 256
+      (tidGuard (at_ "p" (u 0)) ++
+      [ let_ uT "op" (at_ "p" (u 1))
+      , let_ lT "x" (at_ "a" (v "t"))
+      , let_ lT "z" (at_ "b" (v "t"))
+      , let_ lT "r" (ul 0)
+      , if_ (eq (v "op") (u 0)) [ set "r" (call "f64_add" [v "x", v "z"]) ]
+      , if_ (eq (v "op") (u 1)) [ set "r" (call "f64_sub" [v "x", v "z"]) ]
+      , if_ (eq (v "op") (u 2)) [ set "r" (call "f64_mul" [v "x", v "z"]) ]
+      , if_ (eq (v "op") (u 3)) [ set "r" (call "f64_div" [v "x", v "z"]) ]
+      , if_ (eq (v "op") (u 4)) [ set "r" (call "f64_floor" [v "x"]) ]
+      , if_ (eq (v "op") (u 5)) [ set "r" (call "f64_to_i64" [v "x"]) ]
+      , setAt "y" (v "t") (v "r") ])] }
+
+/-- binary32 → binary64 (exact). Bindings: 0 `a`, 1 `p` = [count], 2 `y`. -/
+def f64OfF32 : SlangShaderModule :=
+  { globals := [roF "a" 0, roU "p" 1, rwL "y" 2]
+    functions := helpers ++ [entry 256
+      (tidGuard (at_ "p" (u 0)) ++ [ setAt "y" (v "t") (call "f64_from_f32" [at_ "a" (v "t")]) ])] }
+
+/-- binary64 → binary32, round to nearest even. Bindings: 0 `a`, 1 `p` = [count], 2 `y`. -/
+def f32OfF64 : SlangShaderModule :=
+  { globals := [roL "a" 0, roU "p" 1, rwF "y" 2]
+    functions := helpers ++ [entry 256
+      (tidGuard (at_ "p" (u 0)) ++ [ setAt "y" (v "t") (call "f64_to_f32" [at_ "a" (v "t")]) ])] }
+
 /-- Every kernel by name, as `emit_kernels` writes them. -/
 def all : List (String × SlangShaderModule) :=
   [ ("mul_mat", mulMat), ("soft_max", softMax), ("norm", norm), ("silu", silu)
-  , ("gelu_erf", geluErf), ("erff_map", erffMap), ("divide", divide), ("sqrt", sqrt) ]
+  , ("gelu_erf", geluErf), ("erff_map", erffMap), ("divide", divide), ("sqrt", sqrt)
+  , ("f64_ew", f64Ew), ("f64_of_f32", f64OfF32), ("f32_of_f64", f32OfF64) ]
 
 end StablehloMlx.Kernels.Shaders

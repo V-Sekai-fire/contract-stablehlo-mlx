@@ -8,8 +8,9 @@ denominator, the norm mean and variance. The Metal GPU has no binary64, so the
 kernels carry a binary64 as its bit pattern in a `uint64_t` and do the arithmetic
 in integers, rounding to nearest even exactly as the CPU's FPU does.
 
-Only the operations those sums need are here: widen from binary32 and from
-uint32, add, multiply, divide, narrow to binary32. Binary32 division and square
+The operations those sums need are here (widen from binary32 and from uint32,
+add, multiply, divide, narrow to binary32), and the rest of what the generic
+StableHLO path does in binary64: subtract, floor, and the conversion to int64. Binary32 division and square
 root are also here, because a GPU's own `/` and `sqrt` need not be correctly
 rounded and ggml-cpu's are (IEEE 754 on arm64).
 
@@ -165,14 +166,20 @@ def f64Add : SlangFunctionDecl :=
          [ set "m" (v "m" <<< toL (.litInt 61 - v "h")), set "e" (v "e" - (.litInt 61 - v "h")) ]
      , ret (call "pack64" [v "sa", v "e", v "m"]) ])
 
-/-- binary64 multiplication, round to nearest even (finite operands; the
-    callers pass finite values only, and a non-finite operand returns NaN so
-    the gap shows rather than hides). -/
+/-- The quiet bit of a binary64 NaN: arm64 (FPCR.DN clear) returns a NaN
+    operand with this bit set. -/
+def QUIET64 : E := ul 0x8000000000000
+def ALL64 : E := ul 0xFFFFFFFFFFFFFFFF
+def SIGN64 : E := ul 0x8000000000000000
+
+/-- binary64 multiplication, round to nearest even. -/
 def f64Mul : SlangFunctionDecl :=
   fn lT "f64_mul" [("a", lT), ("b", lT)]
     ([ let_ lT "s" ((v "a" ^^^ v "b") >>> ul 63)
-     , if_ (or_ (gt (v "a" &&& ul 0x7FFFFFFFFFFFFFFF) (ul 0x7FEFFFFFFFFFFFFF))
-                (gt (v "b" &&& ul 0x7FFFFFFFFFFFFFFF) (ul 0x7FEFFFFFFFFFFFFF))) [ ret NAN64 ]
+     , if_ (isNan (v "a")) [ ret (v "a" ||| QUIET64) ]
+     , if_ (isNan (v "b")) [ ret (v "b" ||| QUIET64) ]
+     , if_ (isInf (v "a")) [ if_ (isZero (v "b")) [ ret NAN64 ], ret ((v "s" <<< ul 63) ||| INF64) ]
+     , if_ (isInf (v "b")) [ if_ (isZero (v "a")) [ ret NAN64 ], ret ((v "s" <<< ul 63) ||| INF64) ]
      , if_ (or_ (isZero (v "a")) (isZero (v "b"))) [ ret (v "s" <<< ul 63) ] ]
      ++ unpackStmts "a" ++ unpackStmts "b" ++
      [ let_ lT "a0" (v "am" &&& ul 0xFFFFFFFF), let_ lT "a1" (v "am" >>> ul 32)
@@ -188,6 +195,46 @@ def f64Mul : SlangFunctionDecl :=
      , let_ iT "e" (v "ae" + v "be" - .litInt 1023)
      , if_ (ne (v "m" >>> ul 62) (ul 0)) [ set "m" (call "srs" [v "m", u 1]), set "e" (v "e" + .litInt 1) ]
      , ret (call "pack64" [v "s", v "e", v "m"]) ])
+
+/-- binary64 subtraction: `a + (−b)`, with arm64's NaN rule (a NaN `a` first). -/
+def f64Sub : SlangFunctionDecl :=
+  fn lT "f64_sub" [("a", lT), ("b", lT)]
+    [ if_ (isNan (v "a")) [ ret (v "a" ||| QUIET64) ]
+    , if_ (isNan (v "b")) [ ret (v "b" ||| QUIET64) ]
+    , ret (call "f64_add" [v "a", v "b" ^^^ SIGN64]) ]
+
+/-- binary64 floor (round toward −∞), exact. -/
+def f64Floor : SlangFunctionDecl :=
+  fn lT "f64_floor" [("a", lT)]
+    [ if_ (isNan (v "a")) [ ret (v "a" ||| QUIET64) ]
+    , if_ (isZero (v "a")) [ ret (v "a") ]
+    , let_ iT "e" (toI ((v "a" >>> ul 52) &&& ul 0x7FF))
+    -- |a| ≥ 2^52 (and infinities): already an integer.
+    , if_ (ge (v "e") (.litInt 1075)) [ ret (v "a") ]
+    -- 0 < |a| < 1: +0 or −1.
+    , if_ (lt (v "e") (.litInt 1023)) [ ret (sel (ne (v "a" >>> ul 63) (ul 0)) (ul 0xBFF0000000000000) (ul 0)) ]
+    , let_ lT "mask" ((ul 1 <<< toL (.litInt 1075 - v "e")) - ul 1)
+    , if_ (eq (v "a" &&& v "mask") (ul 0)) [ ret (v "a") ]
+    , if_ (eq (v "a" >>> ul 63) (ul 0)) [ ret (v "a" &&& (v "mask" ^^^ ALL64)) ]
+    -- Negative: one more unit in the last integer place (a carry into the exponent is right).
+    , ret ((v "a" &&& (v "mask" ^^^ ALL64)) + v "mask" + ul 1) ]
+
+/-- binary64 → int64, rounding toward zero, saturating, NaN → 0 (arm64 `fcvtzs`,
+    which XLA's `fptosi` lowers to). The result is the int64's bit pattern. -/
+def f64ToI64 : SlangFunctionDecl :=
+  fn lT "f64_to_i64" [("a", lT)]
+    [ if_ (isNan (v "a")) [ ret (ul 0) ]
+    , let_ iT "e" (toI ((v "a" >>> ul 52) &&& ul 0x7FF))
+    , let_ lT "s" (v "a" >>> ul 63)
+    , if_ (lt (v "e") (.litInt 1023)) [ ret (ul 0) ]
+    -- |a| ≥ 2^63.
+    , if_ (ge (v "e") (.litInt 1086)) [ ret (sel (ne (v "s") (ul 0)) SIGN64 (ul 0x7FFFFFFFFFFFFFFF)) ]
+    , let_ lT "m" ((v "a" &&& FRAC) ||| HIDDEN)
+    , let_ lT "q" (ul 0)
+    , if_ (ge (v "e") (.litInt 1075)) [ set "q" (v "m" <<< toL (v "e" - .litInt 1075)) ]
+        [ set "q" (v "m" >>> toL (.litInt 1075 - v "e")) ]
+    , if_ (ne (v "s") (ul 0)) [ ret ((v "q" ^^^ ALL64) + ul 1) ]
+    , ret (v "q") ]
 
 /-- binary64 division, round to nearest even, by restoring long division. -/
 def f64Div : SlangFunctionDecl :=
@@ -259,6 +306,7 @@ def f32Sqrt : SlangFunctionDecl :=
 
 /-- Every helper, in dependency order. -/
 def all : List SlangFunctionDecl :=
-  [hibit64, srs, pack64, f64FromF32, f64FromU32, f64ToF32, f64Add, f64Mul, f64Div, f32Div, f32Sqrt]
+  [hibit64, srs, pack64, f64FromF32, f64FromU32, f64ToF32, f64Add, f64Mul, f64Div, f32Div, f32Sqrt,
+   f64Sub, f64Floor, f64ToI64]
 
 end StablehloMlx.Kernels.SoftFloat

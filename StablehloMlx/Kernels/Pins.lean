@@ -21,6 +21,9 @@ example : emit Shaders.geluErf = Metal.geluerf.slang := by native_decide
 example : emit Shaders.erffMap = Metal.erffmap.slang := by native_decide
 example : emit Shaders.divide = Metal.divide.slang := by native_decide
 example : emit Shaders.sqrt = Metal.sqrt.slang := by native_decide
+example : emit Shaders.f64Ew = Metal.f64ew.slang := by native_decide
+example : emit Shaders.f64OfF32 = Metal.f64off32.slang := by native_decide
+example : emit Shaders.f32OfF64 = Metal.f32off64.slang := by native_decide
 example : Metal.all.length = Shaders.all.length := by native_decide
 
 end StablehloMlx.Kernels.Pins

@@ -52,6 +52,8 @@ def dtF32 : UInt8 := 10
 @[extern "smlx_astype"] opaque astype (a : @& Arr) (dtype : UInt8) : IO Arr
 @[extern "smlx_view"] opaque view (a : @& Arr) (dtype : UInt8) : IO Arr
 @[extern "smlx_take"] opaque take (a idx : @& Arr) (axis : UInt32) : IO Arr
+/-- The largest element along `axis` (the axis is removed). -/
+@[extern "smlx_max_axis"] opaque maxAxis (a : @& Arr) (axis : UInt32) : IO Arr
 @[extern "smlx_contiguous"] opaque contiguous (a : @& Arr) : IO Arr
 @[extern "smlx_eval"] opaque eval (xs : @& Array Arr) : IO Unit
 
@@ -102,6 +104,8 @@ def opGt : UInt32 := 15
 def opGe : UInt32 := 16
 def opMatmul : UInt32 := 17
 def opRem : UInt32 := 18
+def opLAnd : UInt32 := 19
+def opLOr : UInt32 := 20
 
 /-- Little-endian bytes of a list of 32-bit words. -/
 def wordsToBytes (ws : Array UInt32) : ByteArray := Id.run do
@@ -114,6 +118,16 @@ def wordsToBytes (ws : Array UInt32) : ByteArray := Id.run do
   return b
 
 def u32Arr (ws : Array UInt32) : IO Arr := ofBytes (wordsToBytes ws) #[ws.size] dtU32
+
+/-- Little-endian bytes of 64-bit words. -/
+def words64ToBytes (ws : Array UInt64) : ByteArray := Id.run do
+  let mut b := ByteArray.emptyWithCapacity (8 * ws.size)
+  for w in ws do
+    for k in List.range 8 do b := b.push ((w >>> (8 * k).toUInt64) &&& 0xFF).toUInt8
+  return b
+
+/-- A uint64 scalar array (also the carrier of a binary64 bit pattern). -/
+def u64Scalar (w : UInt64) : IO Arr := ofBytes (words64ToBytes #[w]) #[] dtU64
 
 /-- A float32 scalar array from its bit pattern. -/
 def f32Scalar (bits : UInt32) : IO Arr := ofBytes (wordsToBytes #[bits]) #[] dtF32
